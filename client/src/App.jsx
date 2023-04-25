@@ -14,7 +14,7 @@ function App() {
       .get("https://thewordartisan.online/api/v1/pancake")
       .then(function (response) {
         console.log(response.data);
-        setResult(response.data.result);
+        setResult(response.data.result.reverse());
       })
       .catch(function (error) {
         console.log(error);
@@ -26,9 +26,9 @@ function App() {
   }, []);
 
   return (
-    <div className="w-full ">
+    <div className="w-full h-full dark:bg-white">
       {isLoading ? (
-        <div className="w-screen  flex justify-center">
+        <div className="w-screen  flex justify-center dark:bg-white">
           <div>
             <img src={loading} alt="loading" className="w-28 bg-blue-400"></img>
             <p>Pancake loading...</p>
@@ -53,7 +53,7 @@ function App() {
 
           <table className="">
             <thead className="">
-              <tr className="w-full gap-4  sticky top-0 bg-black text-white  ">
+              <tr className="w-full gap-4  sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
                 <th className="border border-x-1 px-2 ">epoch</th>
                 <th className="border border-x-1 px-2 ">bull_amount_0</th>
                 <th className="border border-x-1 px-2 ">bull_amount_1</th>
@@ -76,7 +76,14 @@ function App() {
             </thead>
             <tbody>
               {result.map((r, i) => (
-                <tr className={`${i % 2 == 0 ? "bg-gray-200" : ""}`} key={i}>
+                <tr
+                  className={`${
+                    i % 2 == 0
+                      ? "bg-gray-200 dark:bg-gray-200"
+                      : "dark:bg-white"
+                  }   dark:text-black  `}
+                  key={i}
+                >
                   <td className="text-center border border-r-1">{r.epoch}</td>
                   <td className="text-center border border-r-1">
                     {r.bull_amount_0}
