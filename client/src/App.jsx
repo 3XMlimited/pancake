@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import config from "./data.js";
 import { CSVLink, CSVDownload } from "react-csv";
 import loading from "./assets/loading.svg";
 
 function App() {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [data, setData] = useState("bnb");
+  const pancake =
+    "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png";
+  const bnb = "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png";
   const handleClick = () => {
     setIsLoading(true);
     axios
-      .get("https://thewordartisan.online/api/v1/pancake")
+      .get(`https://thewordartisan.online/api/v1/pancake?dbname=${data}`)
       .then(function (response) {
         console.log(response.data);
         setResult(response.data.result.reverse());
@@ -21,9 +23,10 @@ function App() {
       })
       .finally(() => setIsLoading(false));
   };
+
   useEffect(() => {
     handleClick();
-  }, []);
+  }, [data]);
 
   return (
     <div className="w-full h-full dark:bg-white">
@@ -39,16 +42,31 @@ function App() {
           <div className="flex justify-start my-2 gap-4">
             <CSVLink
               data={result}
-              className=" bg-blue-400 p-2 text-white rounded-md "
+              className=" bg-blue-400 p-2 text-white rounded-md font-bold"
             >
               Download me
             </CSVLink>
             <button
-              className="bg-green-500 p-2 px-6  text-white rounded-md"
+              className="bg-green-500 p-2 px-6  text-white rounded-md font-bold"
               onClick={() => handleClick()}
             >
               Refresh
             </button>
+
+            <img
+              src={`${data === "bnb" ? bnb : pancake}`}
+              alt="coin"
+              className="w-10"
+            />
+
+            <select
+              className="font-bold"
+              onChange={(e) => setData(e.target.value)}
+              value={data}
+            >
+              <option value="bnb">BNB</option>
+              <option value="cake">CAKE</option>
+            </select>
           </div>
 
           <table className="">
