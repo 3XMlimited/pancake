@@ -11,7 +11,7 @@ function App() {
   const handleClick = () => {
     setIsLoading(true);
     axios
-      .get("http://localhost:5001/api/v1/pancake")
+      .get("https://thewordartisan.online/api/v1/pancake")
       .then(function (response) {
         console.log(response.data);
         setResult(response.data.result);
