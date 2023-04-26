@@ -29,17 +29,21 @@ function App() {
   }, [data]);
 
   return (
-    <div className="w-full h-full dark:bg-white">
+    <div className="w-screen h-full dark:bg-white">
       {isLoading ? (
         <div className="w-screen  flex justify-center dark:bg-white">
-          <div>
-            <img src={loading} alt="loading" className="w-28 bg-blue-400"></img>
-            <p>Pancake loading...</p>
+          <div className="dark:text-black">
+            <img
+              src={loading}
+              alt="loading"
+              className="w-40 bg-blue-400 "
+            ></img>
+            <p className="font-bold font-mono">Pancake loading...</p>
           </div>
         </div>
       ) : (
-        <>
-          <div className="flex justify-start my-2 gap-4">
+        <div className="w-screen relative bg-white">
+          <div className="w-full flex justify-start m-2 gap-4 ">
             <CSVLink
               data={result}
               className=" bg-blue-400 p-2 text-white rounded-md font-bold"
@@ -69,107 +73,119 @@ function App() {
             </select>
           </div>
 
-          <table className="">
-            <thead className="">
-              <tr className="w-full gap-4  sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
-                <th className="border border-x-1 px-2 ">epoch</th>
-                <th className="border border-x-1 px-2 ">bull_ratio_1</th>
-                <th className="border border-x-1 px-2 ">bull_ratio_0</th>
-                <th className="border border-x-1 px-2 ">bull_ratio_2</th>
-                <th className="border border-x-1 px-2 ">bull_amount_0</th>
-                <th className="border border-x-1 px-2 ">bull_amt_change_2</th>
-                <th className="border border-x-1 px-2 ">bull_amount_2</th>
-                <th className="border border-x-1 px-2 ">bull_amt_change_1</th>
-                <th className="border border-x-1 px-2 ">lock_price_change_1</th>
-                <th className="border border-x-1 px-2 ">bull_amount_1</th>
-                <th className="border border-x-1 px-2 ">bull_amt_change_0</th>
-                <th className="border border-x-1 px-2 ">lock_price_change_2</th>
-                <th className="border border-x-1 px-2 ">bull_ratio_change_0</th>
-                <th className="border border-x-1 px-2 ">total_amount_2</th>
-                <th className="border border-x-1 px-2 ">bull_ratio_change_2</th>
-                <th className="border border-x-1 px-2 ">total_amount_0</th>
-                <th className="border border-x-1 px-2 ">bull_ratio_change_1</th>
-                <th className="border border-x-1 px-2 ">total_amount_1</th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.map((r, i) => (
-                <tr
-                  className={`${
-                    i % 2 == 0
-                      ? "bg-gray-200 dark:bg-gray-200"
-                      : "dark:bg-white"
-                  }   dark:text-black  `}
-                  key={i}
-                >
-                  <td className="text-center border border-r-1">{r.epoch}</td>
-
-                  <td className="text-center border border-r-1">
-                    {r.bull_ratio_1}
-                  </td>
-                  <td className="text-center border border-r-1">
-                    {r.bull_ratio_0}
-                  </td>
-                  <td className="text-center border border-r-1">
-                    {r.bull_ratio_2}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.bull_amount_0}
-                  </td>
-                  <td className="text-center border border-r-1">
-                    {r.bull_amt_change_2}
-                  </td>
-                  <td className="text-center border border-r-1">
-                    {r.bull_amount_2}
-                  </td>
-                  <td className="text-center border border-r-1">
-                    {r.bull_amt_change_1}
-                  </td>
-                  <td className="text-center border border-r-1">
-                    {r.lock_price_change_1}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.bull_amount_1}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.bull_amt_change_0}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.lock_price_change_2}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.bull_ratio_change_0}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.total_amount_2}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.bull_ratio_change_2}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.total_amount_0}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.bull_ratio_change_1}
-                  </td>
-
-                  <td className="text-center border border-r-1">
-                    {r.total_amount_1}
-                  </td>
+          <div className="w-full overflow-x-scroll ">
+            <table className="w-full">
+              <thead className="">
+                <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
+                  <th className="border border-x-1 px-2 ">epoch</th>
+                  <th className="border border-x-1 px-2 ">bull_ratio_1</th>
+                  <th className="border border-x-1 px-2 ">bull_ratio_0</th>
+                  <th className="border border-x-1 px-2 ">bull_ratio_2</th>
+                  <th className="border border-x-1 px-2 ">bull_amount_0</th>
+                  <th className="border border-x-1 px-2 ">bull_amt_change_2</th>
+                  <th className="border border-x-1 px-2 ">bull_amount_2</th>
+                  <th className="border border-x-1 px-2 ">bull_amt_change_1</th>
+                  <th className="border border-x-1 px-2 ">
+                    lock_price_change_1
+                  </th>
+                  <th className="border border-x-1 px-2 ">bull_amount_1</th>
+                  <th className="border border-x-1 px-2 ">bull_amt_change_0</th>
+                  <th className="border border-x-1 px-2 ">
+                    lock_price_change_2
+                  </th>
+                  <th className="border border-x-1 px-2 ">
+                    bull_ratio_change_0
+                  </th>
+                  <th className="border border-x-1 px-2 ">total_amount_2</th>
+                  <th className="border border-x-1 px-2 ">
+                    bull_ratio_change_2
+                  </th>
+                  <th className="border border-x-1 px-2 ">total_amount_0</th>
+                  <th className="border border-x-1 px-2 ">
+                    bull_ratio_change_1
+                  </th>
+                  <th className="border border-x-1 px-2 ">total_amount_1</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
+              </thead>
+              <tbody className="m">
+                {result.map((r, i) => (
+                  <tr
+                    className={`${
+                      i % 2 == 0
+                        ? "bg-gray-200 dark:bg-gray-200"
+                        : "dark:bg-white"
+                    }   dark:text-black  `}
+                    key={i}
+                  >
+                    <td className="text-center border border-r-1">{r.epoch}</td>
+
+                    <td className="text-center border border-r-1">
+                      {r.bull_ratio_1}
+                    </td>
+                    <td className="text-center border border-r-1">
+                      {r.bull_ratio_0}
+                    </td>
+                    <td className="text-center border border-r-1">
+                      {r.bull_ratio_2}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.bull_amount_0}
+                    </td>
+                    <td className="text-center border border-r-1">
+                      {r.bull_amt_change_2}
+                    </td>
+                    <td className="text-center border border-r-1">
+                      {r.bull_amount_2}
+                    </td>
+                    <td className="text-center border border-r-1">
+                      {r.bull_amt_change_1}
+                    </td>
+                    <td className="text-center border border-r-1">
+                      {r.lock_price_change_1}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.bull_amount_1}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.bull_amt_change_0}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.lock_price_change_2}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.bull_ratio_change_0}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.total_amount_2}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.bull_ratio_change_2}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.total_amount_0}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.bull_ratio_change_1}
+                    </td>
+
+                    <td className="text-center border border-r-1">
+                      {r.total_amount_1}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
     </div>
   );
