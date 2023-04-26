@@ -73,7 +73,7 @@ function App() {
             </select>
           </div>
 
-          <div className="w-full overflow-x-scroll ">
+          <div className="w-full overflow-x-scroll px-2">
             <table className="w-full">
               <thead className="">
                 <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
@@ -107,7 +107,7 @@ function App() {
                   <th className="border border-x-1 px-2 ">total_amount_1</th>
                 </tr>
               </thead>
-              <tbody className="m">
+              <tbody className="">
                 {result.map((r, i) => (
                   <tr
                     className={`${
