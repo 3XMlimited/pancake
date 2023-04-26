@@ -60,7 +60,7 @@ function App() {
             />
 
             <select
-              className="font-bold"
+              className="font-bold bg-white dark:bg-white dark:text-black"
               onChange={(e) => setData(e.target.value)}
               value={data}
             >
