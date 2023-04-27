@@ -241,7 +241,7 @@ function App() {
                                 ((-s.lock_price + s.close_price) /
                                   s.lock_price) *
                                 100
-                              ).toFixed(3)}
+                              ).toFixed(4)}
                             </td>
 
                             <td className="text-center border border-r-1 ">
