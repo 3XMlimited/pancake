@@ -7,6 +7,8 @@ function App() {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState("pancake");
+  const [bnbdata, setBNBData] = useState([]);
+
   const pancake =
     "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png";
   const bnb = "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png";
@@ -17,6 +19,31 @@ function App() {
       .then(function (response) {
         console.log(response.data);
         setResult(response.data.result.reverse());
+        if (data === "bnb/live") {
+          let blive = response.data.result.reverse().map((e) => e.data);
+          let ress = [];
+
+          blive.map((r) => {
+            let res = {};
+            r.map((g, i) => {
+              res["dateTime"] = blive[0][0]["datetime"];
+              res[`epoch${i}`] = g["epoch"];
+              res[`bear amount ${i}`] = g["bear_amount"];
+              res[`bull amount ${i}`] = g["bull_amount"];
+              res[`close price ${i}`] = g["close_price"];
+              res[`lock price ${i}`] = g["lock_price"];
+              res[`price pool ${i}`] = g["total_amount"];
+              res[`up payout ${i}`] = g["up_payout"];
+              res[`down payout ${i}`] = g["down_payout"];
+              res[`result ${i}`] =
+                g["close_price"] / g["lock_price"] > 0 ? "UP" : "DOWN";
+            });
+            ress.push(res);
+          });
+          setBNBData(ress);
+          console.log("ress", ress);
+          //
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -45,7 +72,7 @@ function App() {
         <div className="w-screen relative bg-white">
           <div className="w-full flex justify-start p-2 gap-4 ">
             <CSVLink
-              data={result}
+              data={data === "bnb/live" ? bnbdata : result}
               className=" bg-blue-400 p-2 text-white rounded-md font-bold"
             >
               Download me
@@ -78,24 +105,40 @@ function App() {
               <div className="w-full overflow-x-scroll ">
                 <table className="w-full  h-[50%] overflow-y-scroll">
                   <thead className="">
-                    <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
-                      <th className="border border-x-1 px-2 ">dateTime</th>
-                      <th className="border border-x-1 px-2 ">Next</th>
-                      <th className="border border-x-1 px-2 ">
-                        Next Up payout
-                      </th>
-                      <th className="border border-x-1 px-2 ">
-                        Next Down payout
-                      </th>
-                      {/* <th className="border border-x-1 px-2 ">Next Result</th> */}
-                      <th className="border border-x-1 px-2 ">
-                        Next bull_amount
-                      </th>
-                      <th className="border border-x-1 px-2 ">
-                        Next bear_mount
+                    <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
+                      <th className="border border-x-1 px-2 "></th>
+                      <th className="border border-x-1 px-2 " colSpan={5}>
+                        Next
                       </th>
 
-                      <th className="border border-x-1 px-2 ">Live</th>
+                      <th className="border border-x-1 px-2 " colSpan={5}>
+                        Live
+                      </th>
+
+                      <th className="border border-x-1 px-2 " colSpan={6}>
+                        Previous 1
+                      </th>
+
+                      <th className="border border-x-1 px-2 " colSpan={6}>
+                        Previous 2
+                      </th>
+
+                      <th className="border border-x-1 px-2 " colSpan={6}>
+                        Previous 3
+                      </th>
+                    </tr>
+                  </thead>
+                  <thead className="">
+                    <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
+                      <th className="border border-x-1 px-2 ">dateTime</th>
+                      <th className="border border-x-1 px-2 ">epoch</th>
+                      <th className="border border-x-1 px-2 ">Up payout</th>
+                      <th className="border border-x-1 px-2 ">Down payout</th>
+                      {/* <th className="border border-x-1 px-2 ">Next Result</th> */}
+                      <th className="border border-x-1 px-2 ">bull_amount</th>
+                      <th className="border border-x-1 px-2 ">bear_mount</th>
+
+                      <th className="border border-x-1 px-2 ">epoch</th>
                       <th className="border border-x-1 px-2 ">Up payout</th>
                       <th className="border border-x-1 px-2 ">Down payout</th>
                       {/* <th className="border border-x-1 px-2 ">
@@ -105,26 +148,26 @@ function App() {
                       <th className="border border-x-1 px-2 ">bull_amount</th>
                       <th className="border border-x-1 px-2 ">bear_mount</th>
 
-                      <th className="border border-x-1 px-2 ">Previous 1</th>
-                      <th className="border border-x-1 px-2 ">Up payout 1</th>
-                      <th className="border border-x-1 px-2 ">Down payout 1</th>
-                      <th className="border border-x-1 px-2 ">Result</th>
-                      <th className="border border-x-1 px-2 ">bull_amount 1</th>
-                      <th className="border border-x-1 px-2 ">bear_mount 1</th>
-
-                      <th className="border border-x-1 px-2 ">Previous 2</th>
-                      <th className="border border-x-1 px-2 ">Up payout 2</th>
+                      <th className="border border-x-1 px-2 ">epoch</th>
+                      <th className="border border-x-1 px-2 ">Up payout </th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
                       <th className="border border-x-1 px-2 ">Result</th>
-                      <th className="border border-x-1 px-2 ">bull_amount 2</th>
-                      <th className="border border-x-1 px-2 ">bear_mount 2</th>
+                      <th className="border border-x-1 px-2 ">bull_amount </th>
+                      <th className="border border-x-1 px-2 ">bear_mount </th>
 
-                      <th className="border border-x-1 px-2 ">Previous 3</th>
-                      <th className="border border-x-1 px-2 ">Up payout 3</th>
-                      <th className="border border-x-1 px-2 ">Down payout 3</th>
+                      <th className="border border-x-1 px-2 ">epoch </th>
+                      <th className="border border-x-1 px-2 ">Up payout </th>
+                      <th className="border border-x-1 px-2 ">Down payout </th>
                       <th className="border border-x-1 px-2 ">Result</th>
-                      <th className="border border-x-1 px-2 ">bull_amount 3</th>
-                      <th className="border border-x-1 px-2 ">bear_mount 3</th>
+                      <th className="border border-x-1 px-2 ">bull_amount </th>
+                      <th className="border border-x-1 px-2 ">bear_mount </th>
+
+                      <th className="border border-x-1 px-2 ">Previous </th>
+                      <th className="border border-x-1 px-2 ">Up payout </th>
+                      <th className="border border-x-1 px-2 ">Down payout </th>
+                      <th className="border border-x-1 px-2 ">Result</th>
+                      <th className="border border-x-1 px-2 ">bull_amount </th>
+                      <th className="border border-x-1 px-2 ">bear_mount </th>
                     </tr>
                   </thead>
                   <tbody className="w-full">
@@ -188,38 +231,57 @@ function App() {
               <div className="w-full overflow-x-scroll ">
                 <table className="w-full mt-10 h-[50%] overflow-y-scroll">
                   <thead className="">
-                    <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
-                      <th className="border border-x-1 px-2 ">dateTime</th>
-                      <th className="border border-x-1 px-2 ">Next</th>
-                      <th className="border border-x-1 px-2 ">
-                        Next Close Price
-                      </th>
-                      <th className="border border-x-1 px-2 ">
-                        Next Lock Price
-                      </th>
-                      <th className="border border-x-1 px-2 ">
-                        Next Price Pool
+                    <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
+                      <th className="border border-x-1 px-2 "></th>
+                      <th className="border border-x-1 px-2 " colSpan={4}>
+                        Next
                       </th>
 
-                      <th className="border border-x-1 px-2 ">Live</th>
+                      <th className="border border-x-1 px-2 " colSpan={4}>
+                        Live
+                      </th>
+
+                      <th className="border border-x-1 px-2 " colSpan={4}>
+                        Previous 1
+                      </th>
+
+                      <th className="border border-x-1 px-2 " colSpan={4}>
+                        Previous 2
+                      </th>
+
+                      <th className="border border-x-1 px-2 " colSpan={6}>
+                        Previous 3
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <thead className="">
+                    <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
+                      <th className="border border-x-1 px-2 ">dateTime</th>
+                      <th className="border border-x-1 px-2 ">epoch</th>
+                      <th className="border border-x-1 px-2 ">Close Price</th>
+                      <th className="border border-x-1 px-2 ">Lock Price</th>
+                      <th className="border border-x-1 px-2 ">Price Pool</th>
+
+                      <th className="border border-x-1 px-2 ">epoch</th>
                       <th className="border border-x-1 px-2 ">Close Price</th>
                       <th className="border border-x-1 px-2 ">Lock Price</th>
                       <th className="border border-x-1 px-2 "> Price Pool</th>
 
-                      <th className="border border-x-1 px-2 ">Previous 1</th>
-                      <th className="border border-x-1 px-2 ">Close Price 1</th>
-                      <th className="border border-x-1 px-2 ">Lock Price 1</th>
-                      <th className="border border-x-1 px-2 "> Price Pool 1</th>
+                      <th className="border border-x-1 px-2 ">epoch</th>
+                      <th className="border border-x-1 px-2 ">Close Price </th>
+                      <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 "> Price Pool </th>
 
-                      <th className="border border-x-1 px-2 ">Previous 2</th>
-                      <th className="border border-x-1 px-2 ">Close Price 2</th>
-                      <th className="border border-x-1 px-2 ">Lock Price 2</th>
-                      <th className="border border-x-1 px-2 "> Price Pool 2</th>
+                      <th className="border border-x-1 px-2 ">epoch</th>
+                      <th className="border border-x-1 px-2 ">Close Price </th>
+                      <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 "> Price Pool </th>
 
-                      <th className="border border-x-1 px-2 ">Previous 3</th>
-                      <th className="border border-x-1 px-2 ">Close Price 3</th>
-                      <th className="border border-x-1 px-2 ">Lock Price 3</th>
-                      <th className="border border-x-1 px-2 "> Price Pool 3</th>
+                      <th className="border border-x-1 px-2 ">epoch</th>
+                      <th className="border border-x-1 px-2 ">Close Price </th>
+                      <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 "> Price Pool </th>
                     </tr>
                   </thead>
                   <tbody className="w-full">
