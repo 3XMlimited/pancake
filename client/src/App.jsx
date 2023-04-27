@@ -87,6 +87,7 @@ function App() {
                       <th className="border border-x-1 px-2 ">
                         Next Down payout
                       </th>
+                      <th className="border border-x-1 px-2 ">Next Result</th>
                       <th className="border border-x-1 px-2 ">
                         Next bull_amount
                       </th>
@@ -97,24 +98,30 @@ function App() {
                       <th className="border border-x-1 px-2 ">Live</th>
                       <th className="border border-x-1 px-2 ">Up payout</th>
                       <th className="border border-x-1 px-2 ">Down payout</th>
+                      <th className="border border-x-1 px-2 ">
+                        Not Final Result
+                      </th>
                       <th className="border border-x-1 px-2 ">bull_amount</th>
                       <th className="border border-x-1 px-2 ">bear_mount</th>
 
                       <th className="border border-x-1 px-2 ">Previous 1</th>
                       <th className="border border-x-1 px-2 ">Up payout 1</th>
                       <th className="border border-x-1 px-2 ">Down payout 1</th>
+                      <th className="border border-x-1 px-2 ">Result</th>
                       <th className="border border-x-1 px-2 ">bull_amount 1</th>
                       <th className="border border-x-1 px-2 ">bear_mount 1</th>
 
                       <th className="border border-x-1 px-2 ">Previous 2</th>
                       <th className="border border-x-1 px-2 ">Up payout 2</th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
+                      <th className="border border-x-1 px-2 ">Result</th>
                       <th className="border border-x-1 px-2 ">bull_amount 2</th>
                       <th className="border border-x-1 px-2 ">bear_mount 2</th>
 
                       <th className="border border-x-1 px-2 ">Previous 3</th>
                       <th className="border border-x-1 px-2 ">Up payout 3</th>
                       <th className="border border-x-1 px-2 ">Down payout 3</th>
+                      <th className="border border-x-1 px-2 ">Result</th>
                       <th className="border border-x-1 px-2 ">bull_amount 3</th>
                       <th className="border border-x-1 px-2 ">bear_mount 3</th>
                     </tr>
@@ -146,6 +153,21 @@ function App() {
                             </td>
                             <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
                               {s.down_payout}
+                            </td>
+                            <td
+                              className={`text-center border border-r-1 ${
+                                s.close_price > s.lock_price
+                                  ? "bg-[#31d0aa]"
+                                  : s.close_price === s.lock_price
+                                  ? "bg-gray-500"
+                                  : "bg-[#ed4b93]"
+                              } text-white font-mono`}
+                            >
+                              {s.close_price > s.lock_price
+                                ? "UP"
+                                : s.close_price === s.lock_price
+                                ? "/"
+                                : "DOWN"}
                             </td>
                             <td className="text-center border border-r-1 ">
                               {s.bull_amount}
