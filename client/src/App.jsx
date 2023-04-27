@@ -87,7 +87,7 @@ function App() {
                       <th className="border border-x-1 px-2 ">
                         Next Down payout
                       </th>
-                      <th className="border border-x-1 px-2 ">Next Result</th>
+                      {/* <th className="border border-x-1 px-2 ">Next Result</th> */}
                       <th className="border border-x-1 px-2 ">
                         Next bull_amount
                       </th>
@@ -98,9 +98,9 @@ function App() {
                       <th className="border border-x-1 px-2 ">Live</th>
                       <th className="border border-x-1 px-2 ">Up payout</th>
                       <th className="border border-x-1 px-2 ">Down payout</th>
-                      <th className="border border-x-1 px-2 ">
+                      {/* <th className="border border-x-1 px-2 ">
                         Not Final Result
-                      </th>
+                      </th> */}
                       <th className="border border-x-1 px-2 ">bull_amount</th>
                       <th className="border border-x-1 px-2 ">bear_mount</th>
 
@@ -142,8 +142,8 @@ function App() {
                           </p>
                         </td>
 
-                        {r.data?.map((s) => (
-                          <>
+                        {r.data?.map((s, i) => (
+                          <div key={i}>
                             <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
                               {s.epoch}
                             </td>
@@ -154,28 +154,31 @@ function App() {
                             <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
                               {s.down_payout}
                             </td>
-                            <td
-                              className={`text-center border border-r-1 ${
-                                s.close_price > s.lock_price
-                                  ? "bg-[#31d0aa]"
+                            {i >= 2 && (
+                              <td
+                                className={`text-center border border-r-1 ${
+                                  s.close_price > s.lock_price
+                                    ? "bg-[#31d0aa]"
+                                    : s.close_price === s.lock_price
+                                    ? "bg-gray-500"
+                                    : "bg-[#ed4b93]"
+                                } text-white font-mono`}
+                              >
+                                {s.close_price > s.lock_price
+                                  ? "UP"
                                   : s.close_price === s.lock_price
-                                  ? "bg-gray-500"
-                                  : "bg-[#ed4b93]"
-                              } text-white font-mono`}
-                            >
-                              {s.close_price > s.lock_price
-                                ? "UP"
-                                : s.close_price === s.lock_price
-                                ? "/"
-                                : "DOWN"}
-                            </td>
+                                  ? "/"
+                                  : "DOWN"}
+                              </td>
+                            )}
+
                             <td className="text-center border border-r-1 ">
                               {s.bull_amount}
                             </td>
                             <td className="text-center border border-r-1 ">
                               {s.bear_amount}
                             </td>
-                          </>
+                          </div>
                         ))}
                       </tr>
                     ))}
