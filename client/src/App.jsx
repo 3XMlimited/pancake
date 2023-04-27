@@ -39,13 +39,12 @@ function App() {
               res[`price pool ${i}`] = g["total_amount"];
               res[`up payout ${i}`] = g["up_payout"];
               res[`down payout ${i}`] = g["down_payout"];
-
               res[`result ${i}`] =
                 g["close_price"] / g["lock_price"] > 0 ? "UP" : "DOWN";
               res[`%change ${i}`] = (
-                (s.lock_price - s.close_price) /
-                s.lock_price
-              ).toFixed(2);
+                ((-g.lock_price + g.close_price) / g.lock_price) *
+                100
+              ).toFixed(4);
             });
             ress.push(res);
           });
