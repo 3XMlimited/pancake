@@ -207,7 +207,7 @@ function App() {
                         }   dark:text-black  w-full `}
                         key={i}
                       >
-                        <td className="text-center border border-r-1  w-full">
+                        <td className="text-center border border-r-1  ">
                           <p className="w-[200px]">
                             {moment(r.dateTime).format("YYYY-MM-DD HH:mm")}
                           </p>
