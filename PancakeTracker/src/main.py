@@ -85,38 +85,38 @@ if __name__ == "__main__":
     print("finish:", now)
 
     # Get changes - Current Epoch
-    # bull_amt_change_0 = round(
-    #     result_dict_0["bull_amount"] / result_dict_1["bull_amount"], 2)
-    # bear_amt_change_0 = round(
-    #     result_dict_0["bear_amount"] / result_dict_1["bear_amount"], 2)
-    # bull_ratio_change_0 = round(
-    #     result_dict_0["bull_ratio"] / result_dict_1["bull_ratio"], 2)
+    bull_amt_change_0 = round(
+        result_dict_0["bull_amount"] / result_dict_1["bull_amount"], 2)
+    bear_amt_change_0 = round(
+        result_dict_0["bear_amount"] / result_dict_1["bear_amount"], 2)
+    bull_ratio_change_0 = round(
+        result_dict_0["bull_ratio"] / result_dict_1["bull_ratio"], 2)
 
-    # # Get changes - Epoch - 1
-    # bull_amt_change_1 = round(
-    #     result_dict_1["bull_amount"] / result_dict_2["bull_amount"], 2)
-    # bear_amt_change_1 = round(
-    #     result_dict_1["bear_amount"] / result_dict_2["bear_amount"], 2)
-    # bull_ratio_change_1 = round(
-    #     result_dict_1["bull_ratio"] / result_dict_2["bull_ratio"], 2)
+    # Get changes - Epoch - 1
+    bull_amt_change_1 = round(
+        result_dict_1["bull_amount"] / result_dict_2["bull_amount"], 2)
+    bear_amt_change_1 = round(
+        result_dict_1["bear_amount"] / result_dict_2["bear_amount"], 2)
+    bull_ratio_change_1 = round(
+        result_dict_1["bull_ratio"] / result_dict_2["bull_ratio"], 2)
 
-    # # Get changes - Epoch - 2
-    # bull_amt_change_2 = round(
-    #     result_dict_2["bull_amount"] / result_dict_3["bull_amount"], 2)
-    # bear_amt_change_2 = round(
-    #     result_dict_2["bear_amount"] / result_dict_3["bear_amount"], 2)
-    # bull_ratio_change_2 = round(
-    #     result_dict_2["bull_ratio"] / result_dict_3["bull_ratio"], 2)
+    # Get changes - Epoch - 2
+    bull_amt_change_2 = round(
+        result_dict_2["bull_amount"] / result_dict_3["bull_amount"], 2)
+    bear_amt_change_2 = round(
+        result_dict_2["bear_amount"] / result_dict_3["bear_amount"], 2)
+    bull_ratio_change_2 = round(
+        result_dict_2["bull_ratio"] / result_dict_3["bull_ratio"], 2)
 
     # Last known lock or close price change
-    # try:
-    #     lock_price_change_1 = round(
-    #         result_dict_1["lock_price"] / result_dict_2["lock_price"], 5)
-    #     lock_price_change_2 = round(
-    #         result_dict_2["lock_price"] / result_dict_3["lock_price"], 5)
-    # except:
-    #     lock_price_change_1 = 0
-    #     lock_price_change_2 = 0
+    try:
+        lock_price_change_1 = round(
+            result_dict_1["lock_price"] / result_dict_2["lock_price"], 5)
+        lock_price_change_2 = round(
+            result_dict_2["lock_price"] / result_dict_3["lock_price"], 5)
+    except:
+        lock_price_change_1 = 0
+        lock_price_change_2 = 0
 
     """
     Timestem 0: Represents current round you can place a bet on (up or down) - payouts still being entered

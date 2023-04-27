@@ -39,8 +39,13 @@ function App() {
               res[`price pool ${i}`] = g["total_amount"];
               res[`up payout ${i}`] = g["up_payout"];
               res[`down payout ${i}`] = g["down_payout"];
+
               res[`result ${i}`] =
                 g["close_price"] / g["lock_price"] > 0 ? "UP" : "DOWN";
+              res[`%change ${i}`] = (
+                (s.lock_price - s.close_price) /
+                s.lock_price
+              ).toFixed(2);
             });
             ress.push(res);
           });
@@ -156,6 +161,7 @@ function App() {
                       <th className="border border-x-1 px-2 ">Up payout </th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
                       <th className="border border-x-1 px-2 ">Result</th>
+                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
                       <th className="border border-x-1 px-2 ">bear_mount </th>
 
@@ -163,6 +169,7 @@ function App() {
                       <th className="border border-x-1 px-2 ">Up payout </th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
                       <th className="border border-x-1 px-2 ">Result</th>
+                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
                       <th className="border border-x-1 px-2 ">bear_mount </th>
 
@@ -170,6 +177,7 @@ function App() {
                       <th className="border border-x-1 px-2 ">Up payout </th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
                       <th className="border border-x-1 px-2 ">Result</th>
+                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
                       <th className="border border-x-1 px-2 ">bear_mount </th>
                     </tr>
@@ -217,6 +225,23 @@ function App() {
                                 : s.close_price === s.lock_price
                                 ? "/"
                                 : "DOWN"}
+                            </td>
+
+                            <td
+                              className={`${
+                                ((-s.lock_price + s.close_price) /
+                                  s.lock_price) *
+                                  100 >
+                                0
+                                  ? "text-[#31d0aa]"
+                                  : "text-[#ed4b93]"
+                              }  ${i < 2 && "hidden"} text-center `}
+                            >
+                              {(
+                                ((-s.lock_price + s.close_price) /
+                                  s.lock_price) *
+                                100
+                              ).toFixed(3)}
                             </td>
 
                             <td className="text-center border border-r-1 ">
