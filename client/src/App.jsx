@@ -17,8 +17,12 @@ function App() {
     axios
       .get(`https://thewordartisan.online/api/v1/pancake?dbname=${data}`)
       .then(function (response) {
-        console.log(response.data);
-        setResult(response.data.result.reverse());
+        // console.log(response.data);
+        setResult(
+          response.data.result.sort(
+            (a, b) => new Date(a.datetime) - new Date(b.dateTime)
+          )
+        );
         if (data === "bnb/live") {
           let blive = response.data.result.reverse().map((e) => e.data);
           let ress = [];
@@ -41,7 +45,7 @@ function App() {
             ress.push(res);
           });
           setBNBData(ress);
-          console.log("ress", ress);
+          // console.log("ress", ress);
           //
         }
       })
