@@ -127,15 +127,15 @@ function App() {
                         Live
                       </th>
 
-                      <th className="border border-x-1 px-2 " colSpan={6}>
+                      <th className="border border-x-1 px-2 " colSpan={7}>
                         Previous 1
                       </th>
 
-                      <th className="border border-x-1 px-2 " colSpan={6}>
+                      <th className="border border-x-1 px-2 " colSpan={7}>
                         Previous 2
                       </th>
 
-                      <th className="border border-x-1 px-2 " colSpan={6}>
+                      <th className="border border-x-1 px-2 " colSpan={7}>
                         Previous 3
                       </th>
                     </tr>
