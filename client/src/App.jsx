@@ -26,7 +26,7 @@ function App() {
         if (data === "bnb/live") {
           let blive = response.data.result.reverse().map((e) => e.data);
           let ress = [];
-
+          console.log(response.data.result);
           blive.map((r) => {
             let res = {};
             r.map((g, i) => {
@@ -40,7 +40,11 @@ function App() {
               res[`up payout ${i}`] = g["up_payout"];
               res[`down payout ${i}`] = g["down_payout"];
               res[`result ${i}`] =
-                g["close_price"] / g["lock_price"] > 0 ? "UP" : "DOWN";
+                g.close_price > g.lock_price
+                  ? "UP"
+                  : g.close_price === g.lock_price
+                  ? "/"
+                  : "DOWN";
               res[`%change ${i}`] = (
                 ((-g.lock_price + g.close_price) / g.lock_price) *
                 100
@@ -49,7 +53,7 @@ function App() {
             ress.push(res);
           });
           setBNBData(ress);
-          // console.log("ress", ress);
+          console.log("ress", ress);
           //
         }
       })
