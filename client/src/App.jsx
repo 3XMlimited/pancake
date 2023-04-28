@@ -27,10 +27,10 @@ function App() {
           let blive = response.data.result.reverse().map((e) => e.data);
           let ress = [];
           console.log(response.data.result);
-          blive.map((r) => {
+          blive.map((r, index) => {
             let res = {};
             r.map((g, i) => {
-              res["dateTime"] = blive[0][0]["datetime"];
+              res["dateTime"] = blive[index][0]["datetime"];
               res[`epoch${i}`] = g["epoch"];
               res[`bear amount ${i}`] = g["bear_amount"];
               res[`bull amount ${i}`] = g["bull_amount"];
