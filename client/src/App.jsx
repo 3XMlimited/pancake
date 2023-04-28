@@ -119,23 +119,23 @@ function App() {
                   <thead className="">
                     <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
                       <th className="border border-x-1 px-2 "></th>
-                      <th className="border border-x-1 px-2 " colSpan={5}>
+                      <th className="border border-x-1 px-2 " colSpan={8}>
                         Next
                       </th>
 
-                      <th className="border border-x-1 px-2 " colSpan={5}>
+                      <th className="border border-x-1 px-2 " colSpan={8}>
                         Live
                       </th>
 
-                      <th className="border border-x-1 px-2 " colSpan={7}>
+                      <th className="border border-x-1 px-2 " colSpan={10}>
                         Previous 1
                       </th>
 
-                      <th className="border border-x-1 px-2 " colSpan={7}>
+                      <th className="border border-x-1 px-2 " colSpan={10}>
                         Previous 2
                       </th>
 
-                      <th className="border border-x-1 px-2 " colSpan={7}>
+                      <th className="border border-x-1 px-2 " colSpan={10}>
                         Previous 3
                       </th>
                     </tr>
@@ -146,13 +146,23 @@ function App() {
                       <th className="border border-x-1 px-2 ">epoch</th>
                       <th className="border border-x-1 px-2 ">Up payout</th>
                       <th className="border border-x-1 px-2 ">Down payout</th>
+                      <th className="border border-x-1 px-2 ">Close Price </th>
+                      <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 ">Price Pool </th>
                       {/* <th className="border border-x-1 px-2 ">Next Result</th> */}
                       <th className="border border-x-1 px-2 ">bull_amount</th>
                       <th className="border border-x-1 px-2 ">bear_mount</th>
 
                       <th className="border border-x-1 px-2 ">epoch</th>
-                      <th className="border border-x-1 px-2 ">Up payout</th>
-                      <th className="border border-x-1 px-2 ">Down payout</th>
+                      <th className="border border-x-1 px-2 ">
+                        Pre1 Up payout
+                      </th>
+                      <th className="border border-x-1 px-2 ">
+                        Pre1 Down payout
+                      </th>
+                      <th className="border border-x-1 px-2 ">Last Price </th>
+                      <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 ">Price Pool </th>
                       {/* <th className="border border-x-1 px-2 ">
                         Not Final Result
                       </th> */}
@@ -161,8 +171,11 @@ function App() {
                       <th className="border border-x-1 px-2 ">bear_mount</th>
 
                       <th className="border border-x-1 px-2 ">epoch</th>
-                      <th className="border border-x-1 px-2 ">Up payout </th>
+                      <th className="border border-x-1 px-2 ">Up payout</th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
+                      <th className="border border-x-1 px-2 ">Close Price </th>
+                      <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 ">Price Pool </th>
                       <th className="border border-x-1 px-2 ">Result</th>
                       <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
@@ -171,6 +184,9 @@ function App() {
                       <th className="border border-x-1 px-2 ">epoch </th>
                       <th className="border border-x-1 px-2 ">Up payout </th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
+                      <th className="border border-x-1 px-2 ">Close Price </th>
+                      <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 ">Price Pool </th>
                       <th className="border border-x-1 px-2 ">Result</th>
                       <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
@@ -179,6 +195,9 @@ function App() {
                       <th className="border border-x-1 px-2 ">Previous </th>
                       <th className="border border-x-1 px-2 ">Up payout </th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
+                      <th className="border border-x-1 px-2 ">Close Price </th>
+                      <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 ">Price Pool </th>
                       <th className="border border-x-1 px-2 ">Result</th>
                       <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
@@ -186,14 +205,14 @@ function App() {
                     </tr>
                   </thead>
                   <tbody className="w-full">
-                    {result?.map((r, i) => (
+                    {result?.map((r, index) => (
                       <tr
                         className={`${
-                          i % 2 == 0
+                          index % 2 == 0
                             ? "bg-gray-200 dark:bg-gray-200"
                             : "dark:bg-white"
                         }   dark:text-black  w-full `}
-                        key={i}
+                        key={index}
                       >
                         <td className="text-center border border-r-1  w-full">
                           <p className="w-[200px]">
@@ -201,66 +220,141 @@ function App() {
                           </p>
                         </td>
 
-                        {r.data?.map((s, i) => (
-                          <>
-                            <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
-                              {s.epoch}
-                            </td>
+                        {r.data?.map((s, i) =>
+                          i === 1 ? (
+                            <>
+                              <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
+                                {s.epoch}
+                              </td>
 
-                            <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
-                              {s.up_payout}
-                            </td>
-                            <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
-                              {s.down_payout}
-                            </td>
+                              <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
+                                {r.data[2].up_payout}
+                              </td>
+                              <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
+                                {r.data[2].down_payout}
+                              </td>
 
-                            <td
-                              className={`text-center border border-r-1  ${
-                                s.close_price > s.lock_price
-                                  ? "bg-[#31d0aa]"
+                              <td className="text-center border border-r-1 ">
+                                {s.close_price}
+                              </td>
+                              <td className="text-center border border-r-1 ">
+                                {s.lock_price}
+                              </td>
+                              <td className="text-center border border-r-1 ">
+                                {s.total_amount}
+                              </td>
+
+                              <td
+                                className={`text-center border border-r-1  ${
+                                  s.close_price > s.lock_price
+                                    ? "bg-[#31d0aa]"
+                                    : s.close_price === s.lock_price
+                                    ? "bg-gray-500"
+                                    : "bg-[#ed4b93]"
+                                } text-white font-mono  ${i < 2 && "hidden"} `}
+                              >
+                                {s.close_price > s.lock_price
+                                  ? "UP"
                                   : s.close_price === s.lock_price
-                                  ? "bg-gray-500"
-                                  : "bg-[#ed4b93]"
-                              } text-white font-mono  ${i < 2 && "hidden"} `}
-                            >
-                              {s.close_price > s.lock_price
-                                ? "UP"
-                                : s.close_price === s.lock_price
-                                ? "/"
-                                : "DOWN"}
-                            </td>
+                                  ? "/"
+                                  : "DOWN"}
+                              </td>
 
-                            <td
-                              className={`${
-                                ((-s.lock_price + s.close_price) /
-                                  s.lock_price) *
-                                  100 >
-                                0
-                                  ? "text-[#31d0aa]"
-                                  : "text-[#ed4b93]"
-                              }  ${i < 2 && "hidden"} text-center `}
-                            >
-                              {(
-                                ((-s.lock_price + s.close_price) /
-                                  s.lock_price) *
-                                100
-                              ).toFixed(4)}
-                            </td>
+                              <td
+                                className={`${
+                                  ((-s.lock_price + s.close_price) /
+                                    s.lock_price) *
+                                    100 >
+                                  0
+                                    ? "text-[#31d0aa]"
+                                    : "text-[#ed4b93]"
+                                }  ${i < 2 && "hidden"} text-center `}
+                              >
+                                {(
+                                  ((-s.lock_price + s.close_price) /
+                                    s.lock_price) *
+                                  100
+                                ).toFixed(4)}
+                              </td>
 
-                            <td className="text-center border border-r-1 ">
-                              {s.bull_amount}
-                            </td>
-                            <td className="text-center border border-r-1 ">
-                              {s.bear_amount}
-                            </td>
-                          </>
-                        ))}
+                              <td className="text-center border border-r-1 ">
+                                {s.bull_amount}
+                              </td>
+                              <td className="text-center border border-r-1 ">
+                                {s.bear_amount}
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
+                                {s.epoch}
+                              </td>
+
+                              <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
+                                {s.up_payout}
+                              </td>
+                              <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
+                                {s.down_payout}
+                              </td>
+
+                              <td className="text-center border border-r-1 ">
+                                {s.close_price}
+                              </td>
+                              <td className="text-center border border-r-1 ">
+                                {s.lock_price}
+                              </td>
+                              <td className="text-center border border-r-1 ">
+                                {s.total_amount}
+                              </td>
+
+                              <td
+                                className={`text-center border border-r-1  ${
+                                  s.close_price > s.lock_price
+                                    ? "bg-[#31d0aa]"
+                                    : s.close_price === s.lock_price
+                                    ? "bg-gray-500"
+                                    : "bg-[#ed4b93]"
+                                } text-white font-mono  ${i < 2 && "hidden"} `}
+                              >
+                                {s.close_price > s.lock_price
+                                  ? "UP"
+                                  : s.close_price === s.lock_price
+                                  ? "/"
+                                  : "DOWN"}
+                              </td>
+
+                              <td
+                                className={`${
+                                  ((-s.lock_price + s.close_price) /
+                                    s.lock_price) *
+                                    100 >
+                                  0
+                                    ? "text-[#31d0aa]"
+                                    : "text-[#ed4b93]"
+                                }  ${i < 2 && "hidden"} text-center `}
+                              >
+                                {(
+                                  ((-s.lock_price + s.close_price) /
+                                    s.lock_price) *
+                                  100
+                                ).toFixed(4)}
+                              </td>
+
+                              <td className="text-center border border-r-1 ">
+                                {s.bull_amount}
+                              </td>
+                              <td className="text-center border border-r-1 ">
+                                {s.bear_amount}
+                              </td>
+                            </>
+                          )
+                        )}
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <div className="w-full overflow-x-scroll ">
+              {/* <div className="w-full overflow-x-scroll ">
                 <table className="w-full mt-10 h-[50%] overflow-y-scroll">
                   <thead className="">
                     <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
@@ -353,7 +447,7 @@ function App() {
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </div> */}
             </>
           ) : (
             <div className="w-full overflow-x-scroll px-2">
