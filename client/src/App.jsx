@@ -37,8 +37,10 @@ function App() {
               res[`close price ${i}`] = g["close_price"];
               res[`lock price ${i}`] = g["lock_price"];
               res[`price pool ${i}`] = g["total_amount"];
-              res[`up payout ${i}`] = g["up_payout"];
-              res[`down payout ${i}`] = g["down_payout"];
+              res[`up payout ${i}`] =
+                i === 1 ? r[2]["up_payout"] : g["up_payout"];
+              res[`down payout ${i}`] =
+                i === 1 ? r[2]["down_payout"] : g["down_payout"];
               res[`result ${i}`] =
                 g.close_price > g.lock_price
                   ? "UP"
