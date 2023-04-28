@@ -37,25 +37,36 @@ function App() {
               res[`close price ${i}`] = g["close_price"];
               res[`lock price ${i}`] = g["lock_price"];
               res[`price pool ${i}`] = g["total_amount"];
-              res[`up payout ${i}`] =
-                i === 1 ? r[2]["up_payout"] : g["up_payout"];
-              res[`down payout ${i}`] =
-                i === 1 ? r[2]["down_payout"] : g["down_payout"];
+              res[`up payout ${i}`] = g["up_payout"];
+              res[`down payout ${i}`] = g["down_payout"];
               res[`result ${i}`] =
-                g.close_price > g.lock_price
+                i === 1
+                  ? r[2].close_price > r[2].lock_price
+                    ? "UP"
+                    : r[2].close_price === r[2].lock_price
+                    ? "/"
+                    : "DOWN"
+                  : g.close_price > g.lock_price
                   ? "UP"
                   : g.close_price === g.lock_price
                   ? "/"
                   : "DOWN";
-              res[`%change ${i}`] = (
-                ((-g.lock_price + g.close_price) / g.lock_price) *
-                100
-              ).toFixed(4);
+              res[`%change ${i}`] =
+                i === 1
+                  ? (
+                      ((-g.lock_price + g.close_price) / g.lock_price) *
+                      100
+                    ).toFixed(4)
+                  : (
+                      ((-r[2].lock_price + r[2].close_price) /
+                        r[2].lock_price) *
+                      100
+                    ).toFixed(4);
             });
             ress.push(res);
           });
           setBNBData(ress);
-          console.log("ress", ress);
+          // console.log("ress", ress);
           //
         }
       })
@@ -125,7 +136,7 @@ function App() {
                         Next
                       </th>
 
-                      <th className="border border-x-1 px-2 " colSpan={8}>
+                      <th className="border border-x-1 px-2 " colSpan={11}>
                         Live
                       </th>
 
@@ -156,52 +167,53 @@ function App() {
                       <th className="border border-x-1 px-2 ">bear_mount</th>
 
                       <th className="border border-x-1 px-2 ">epoch</th>
-                      <th className="border border-x-1 px-2 ">
-                        Pre1 Up payout
-                      </th>
-                      <th className="border border-x-1 px-2 ">
-                        Pre1 Down payout
-                      </th>
+                      <th className="border border-x-1 px-2 "> Prev Result</th>
+                      <th className="border border-x-1 px-2 ">Prev %Change</th>
+                      <th className="border border-x-1 px-2 ">Up payout</th>
+                      <th className="border border-x-1 px-2 ">Down payout</th>
                       <th className="border border-x-1 px-2 ">Last Price </th>
                       <th className="border border-x-1 px-2 ">Lock Price </th>
+                      <th className="border border-x-1 px-2 ">
+                        % Price Change{" "}
+                      </th>
                       <th className="border border-x-1 px-2 ">Price Pool </th>
+                      <th className="border border-x-1 px-2 ">bull_amount</th>
+                      <th className="border border-x-1 px-2 ">bear_mount</th>
+
                       {/* <th className="border border-x-1 px-2 ">
                         Not Final Result
                       </th> */}
 
-                      <th className="border border-x-1 px-2 ">bull_amount</th>
-                      <th className="border border-x-1 px-2 ">bear_mount</th>
-
                       <th className="border border-x-1 px-2 ">epoch</th>
+                      <th className="border border-x-1 px-2 ">Result</th>
+                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">Up payout</th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
                       <th className="border border-x-1 px-2 ">Close Price </th>
                       <th className="border border-x-1 px-2 ">Lock Price </th>
                       <th className="border border-x-1 px-2 ">Price Pool </th>
-                      <th className="border border-x-1 px-2 ">Result</th>
-                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
                       <th className="border border-x-1 px-2 ">bear_mount </th>
 
                       <th className="border border-x-1 px-2 ">epoch </th>
+                      <th className="border border-x-1 px-2 ">Result</th>
+                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">Up payout </th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
                       <th className="border border-x-1 px-2 ">Close Price </th>
                       <th className="border border-x-1 px-2 ">Lock Price </th>
                       <th className="border border-x-1 px-2 ">Price Pool </th>
-                      <th className="border border-x-1 px-2 ">Result</th>
-                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
                       <th className="border border-x-1 px-2 ">bear_mount </th>
 
-                      <th className="border border-x-1 px-2 ">Previous </th>
+                      <th className="border border-x-1 px-2 ">epoch</th>
+                      <th className="border border-x-1 px-2 ">Result</th>
+                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">Up payout </th>
                       <th className="border border-x-1 px-2 ">Down payout </th>
                       <th className="border border-x-1 px-2 ">Close Price </th>
                       <th className="border border-x-1 px-2 ">Lock Price </th>
                       <th className="border border-x-1 px-2 ">Price Pool </th>
-                      <th className="border border-x-1 px-2 ">Result</th>
-                      <th className="border border-x-1 px-2 ">%Change</th>
                       <th className="border border-x-1 px-2 ">bull_amount </th>
                       <th className="border border-x-1 px-2 ">bear_mount </th>
                     </tr>
@@ -228,12 +240,75 @@ function App() {
                               <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
                                 {s.epoch}
                               </td>
+                              <td
+                                className={`text-center border border-r-1  ${
+                                  i === 1
+                                    ? r.data[2].close_price >
+                                      r.data[2].lock_price
+                                      ? "bg-[#31d0aa]"
+                                      : r.data[2].close_price ===
+                                        r.data[2].lock_price
+                                      ? "bg-gray-500"
+                                      : "bg-[#ed4b93]"
+                                    : s.close_price > s.lock_price
+                                    ? "bg-[#31d0aa]"
+                                    : s.close_price === s.lock_price
+                                    ? "bg-gray-500"
+                                    : "bg-[#ed4b93]"
+                                } text-white font-mono  ${i < 1 && "hidden"} `}
+                              >
+                                {i === 1
+                                  ? r.data[2].close_price > r.data[2].lock_price
+                                    ? "UP"
+                                    : r.data[2].close_price ===
+                                      r.data[2].lock_price
+                                    ? "/"
+                                    : "DOWN"
+                                  : s.close_price > s.lock_price
+                                  ? "UP"
+                                  : s.close_price === s.lock_price
+                                  ? "/"
+                                  : "DOWN"}
+                              </td>
+
+                              <td
+                                className={`${
+                                  i === 1
+                                    ? ((-r.data[2].lock_price +
+                                        r.data[2].close_price) /
+                                        r.data[2].lock_price) *
+                                        100 >
+                                      0
+                                      ? "text-[#31d0aa]"
+                                      : "text-[#ed4b93]"
+                                    : ((-s.lock_price + s.close_price) /
+                                        s.lock_price) *
+                                        100 >
+                                      0
+                                    ? "text-[#31d0aa]"
+                                    : "text-[#ed4b93]"
+                                }  ${i < 1 && "hidden"} text-center `}
+                              >
+                                {i === 1
+                                  ? (
+                                      ((-r.data[2].lock_price +
+                                        r.data[2].close_price) /
+                                        r.data[2].lock_price) *
+                                      100
+                                    ).toFixed(4)
+                                  : (
+                                      ((-r.data[2].lock_price +
+                                        r.data[2].close_price) /
+                                        r.data[2].lock_price) *
+                                      100
+                                    ).toFixed(4)}
+                              </td>
 
                               <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
-                                {r.data[2].up_payout}
+                                {s.up_payout}
                               </td>
                               <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
-                                {r.data[2].down_payout}
+                                {s.down_payout}
                               </td>
 
                               <td className="text-center border border-r-1 ">
@@ -242,10 +317,39 @@ function App() {
                               <td className="text-center border border-r-1 ">
                                 {s.lock_price}
                               </td>
+                              <td
+                                className={`text-center border border-r-1 ${
+                                  ((s.close_price - s.lock_price) /
+                                    s.lock_price) *
+                                    100 >
+                                  0
+                                    ? "text-[#31d0aa]"
+                                    : "text-[#ed4b93]"
+                                }`}
+                              >
+                                {(
+                                  ((s.close_price - s.lock_price) /
+                                    s.lock_price) *
+                                  100
+                                ).toFixed(4)}
+                              </td>
+
                               <td className="text-center border border-r-1 ">
                                 {s.total_amount}
                               </td>
 
+                              <td className="text-center border border-r-1 ">
+                                {s.bull_amount}
+                              </td>
+                              <td className="text-center border border-r-1 ">
+                                {s.bear_amount}
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
+                                {s.epoch}
+                              </td>
                               <td
                                 className={`text-center border border-r-1  ${
                                   s.close_price > s.lock_price
@@ -277,19 +381,6 @@ function App() {
                                     s.lock_price) *
                                   100
                                 ).toFixed(4)}
-                              </td>
-
-                              <td className="text-center border border-r-1 ">
-                                {s.bull_amount}
-                              </td>
-                              <td className="text-center border border-r-1 ">
-                                {s.bear_amount}
-                              </td>
-                            </>
-                          ) : (
-                            <>
-                              <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
-                                {s.epoch}
                               </td>
 
                               <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
@@ -307,39 +398,6 @@ function App() {
                               </td>
                               <td className="text-center border border-r-1 ">
                                 {s.total_amount}
-                              </td>
-
-                              <td
-                                className={`text-center border border-r-1  ${
-                                  s.close_price > s.lock_price
-                                    ? "bg-[#31d0aa]"
-                                    : s.close_price === s.lock_price
-                                    ? "bg-gray-500"
-                                    : "bg-[#ed4b93]"
-                                } text-white font-mono  ${i < 2 && "hidden"} `}
-                              >
-                                {s.close_price > s.lock_price
-                                  ? "UP"
-                                  : s.close_price === s.lock_price
-                                  ? "/"
-                                  : "DOWN"}
-                              </td>
-
-                              <td
-                                className={`${
-                                  ((-s.lock_price + s.close_price) /
-                                    s.lock_price) *
-                                    100 >
-                                  0
-                                    ? "text-[#31d0aa]"
-                                    : "text-[#ed4b93]"
-                                }  ${i < 2 && "hidden"} text-center `}
-                              >
-                                {(
-                                  ((-s.lock_price + s.close_price) /
-                                    s.lock_price) *
-                                  100
-                                ).toFixed(4)}
                               </td>
 
                               <td className="text-center border border-r-1 ">
