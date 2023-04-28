@@ -36,6 +36,8 @@ function App() {
               res[`bull amount ${i}`] = g["bull_amount"];
               res[`close price ${i}`] = g["close_price"];
               res[`lock price ${i}`] = g["lock_price"];
+              res[`% price change  ${i}`] =
+                ((g.close_price - g.lock_price) / g.lock_price) * 100;
               res[`price pool ${i}`] = g["total_amount"];
               res[`up payout ${i}`] = g["up_payout"];
               res[`down payout ${i}`] = g["down_payout"];
