@@ -9,26 +9,56 @@ function App() {
   const [data, setData] = useState("pancake");
   const [bnbdata, setBNBData] = useState([]);
   const [hover, setHover] = useState("");
-
+  const [count, setCount] = useState(0);
+  const [win, setWin] = useState(0);
   const pancake =
     "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png";
   const bnb = "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png";
-  console.log(result);
+
   const handleClick = () => {
     setIsLoading(true);
     axios
       .get(`https://thewordartisan.online/api/v1/pancake?dbname=${data}`)
       .then(function (response) {
         // console.log(response.data);
-        setResult(
-          response.data.result.sort(
-            (a, b) => new Date(a.datetime) - new Date(b.dateTime)
-          )
-        );
+
         if (data === "bnb/live") {
+          const results = response.data.result.sort(
+            (a, b) => new Date(a.datetime) - new Date(b.dateTime)
+          );
+          const indexs = [results.length - 1, results.length - 2];
+          results.forEach((r, index) => {
+            r["final"] = indexs.includes(index)
+              ? ""
+              : results[index + 2]?.data[2].close_price <
+                results[index + 2]?.data[2].lock_price
+              ? "DOWN"
+              : results[index + 2]?.data[2].close_price >
+                results[index + 2]?.data[2].lock_price
+              ? "UP"
+              : "";
+            r["pred"] =
+              r.data[0].down_payout < 1.4 &&
+              r.data[2].close_price < r.data[2].lock_price
+                ? "UP"
+                : r?.data[0].up_payout < 1.4 &&
+                  r?.data[2].close_price > r.data[2].lock_price
+                ? "DOWN"
+                : "";
+            if (r["pred"] === r["final"]) {
+              setWin((prev) => prev + 1);
+            }
+            if (r["pred"] !== "") {
+              setCount((prev) => prev + 1);
+            }
+          });
+
+          setResult(results);
+
           let blive = response.data.result.reverse().map((e) => e.data);
+
           let ress = [];
-          console.log(response.data.result);
+
           blive.map((r, index) => {
             let res = {};
             r.map((g, i) => {
@@ -72,6 +102,8 @@ function App() {
           setBNBData(ress);
           // console.log("ress", ress);
           //
+        } else {
+          setResult(response.data.result.reverse());
         }
       })
       .catch(function (error) {
@@ -79,7 +111,7 @@ function App() {
       })
       .finally(() => setIsLoading(false));
   };
-
+  console.log("result", result);
   useEffect(() => {
     handleClick();
   }, [data]);
@@ -108,7 +140,11 @@ function App() {
             </CSVLink>
             <button
               className="bg-green-500 p-2 px-6  text-white rounded-md font-bold"
-              onClick={() => handleClick()}
+              onClick={() => {
+                handleClick();
+                setCount(0);
+                setWin(0);
+              }}
             >
               Refresh
             </button>
@@ -128,6 +164,9 @@ function App() {
               <option value="cake">CAKE</option>
               <option value="bnb/live">BNB/Live</option>
             </select>
+            <div className="dark:text-black text-center font-bold  p-2">
+              {win} / {count} ~ {(win / count).toFixed(3)}
+            </div>
           </div>
           {data === "bnb/live" ? (
             <>
