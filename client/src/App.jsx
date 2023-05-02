@@ -110,7 +110,7 @@ function App() {
             res[`up payout`] = r["data"][0]["up_payout"];
             res[`down payout`] = r["data"][0]["down_payout"];
             res[`PREV UP Payout`] = r["data"][2]["up_payout"];
-            res[`PREV DOWN Payout`] = r["data"][2]["up_payout"];
+            res[`PREV DOWN Payout`] = r["data"][2]["down_payout"];
 
             // r.map((g, i) => {
             //   res["dateTime"] = blive[index][0]["datetime"];
