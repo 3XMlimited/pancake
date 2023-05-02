@@ -246,14 +246,14 @@ function App() {
                           </p>
                         </td>
 
-                        {result[index + 2]?.data && (
+                        {result[index - 2]?.data && (
                           <td className="text-center border border-r-1  w-full">
                             <p>
-                              {result[index + 2].data[2].close_price <
-                              result[index + 2].data[2].lock_price
+                              {result[index - 2].data[2].close_price <
+                              result[index - 2].data[2].lock_price
                                 ? "DOWN"
-                                : result[index + 2].data[2].close_price >
-                                  result[index + 2].data[2].lock_price
+                                : result[index - 2].data[2].close_price >
+                                  result[index - 2].data[2].lock_price
                                 ? "UP"
                                 : ""}
                             </p>
