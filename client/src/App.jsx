@@ -246,7 +246,7 @@ function App() {
                           </p>
                         </td>
 
-                        {result[index - 2]?.data && (
+                        {result[index - 2]?.data ? (
                           <td className="text-center border border-r-1  w-full">
                             <p>
                               {result[index - 2].data[2].close_price <
@@ -258,6 +258,8 @@ function App() {
                                 : ""}
                             </p>
                           </td>
+                        ) : (
+                          <td></td>
                         )}
 
                         {r?.data?.[0] && isLoading === false && (
