@@ -109,8 +109,9 @@ function App() {
             res["Predict Result"] = r["pred"];
             res[`up payout`] = r["data"][0]["up_payout"];
             res[`down payout`] = r["data"][0]["down_payout"];
-            res[`close Price`] = r["data"][2]["close_price"];
-            res[`lock Price`] = r["data"][2]["lock_price"];
+            res[`PREV UP Payout`] = r["data"][2]["up_payout"];
+            res[`PREV DOWN Payout`] = r["data"][2]["up_payout"];
+
             // r.map((g, i) => {
             //   res["dateTime"] = blive[index][0]["datetime"];
             //   res[`epoch${i}`] = g["epoch"];
