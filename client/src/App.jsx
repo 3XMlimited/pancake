@@ -23,9 +23,9 @@ function App() {
         // console.log(response.data);
 
         if (data === "bnb/live") {
-          const results = response.data.result.sort(
-            (a, b) => new Date(a.datetime) - new Date(b.dateTime)
-          );
+          const results = response.data.result
+            .reverse()
+            .sort((a, b) => new Date(a.datetime) - new Date(b.dateTime));
           const indexs = [results.length - 1, results.length - 2];
           results.forEach((r, index) => {
             r["final"] = indexs.includes(index)
@@ -55,48 +55,72 @@ function App() {
 
           setResult(results);
 
-          let blive = response.data.result.reverse().map((e) => e.data);
+          // let blive = response.data.result.reverse().map((e) => e.data);
+          // let blive = response.data.result;
 
           let ress = [];
 
-          blive.map((r, index) => {
+          // blive.map((r, index) => {
+          //   let res = {};
+          //   r.map((g, i) => {
+          //     res["dateTime"] = blive[index][0]["datetime"];
+          //     res[`epoch${i}`] = g["epoch"];
+          //     res[`bear amount ${i}`] = g["bear_amount"];
+          //     res[`bull amount ${i}`] = g["bull_amount"];
+          //     res[`close price ${i}`] = g["close_price"];
+          //     res[`lock price ${i}`] = g["lock_price"];
+          //     res[`% price change  ${i}`] =
+          //       ((g.close_price - g.lock_price) / g.lock_price) * 100;
+          //     res[`price pool ${i}`] = g["total_amount"];
+          //     res[`up payout ${i}`] = g["up_payout"];
+          //     res[`down payout ${i}`] = g["down_payout"];
+          //     res[`result ${i}`] =
+          //       i === 1
+          //         ? r[2].close_price > r[2].lock_price
+          //           ? "UP"
+          //           : r[2].close_price === r[2].lock_price
+          //           ? "/"
+          //           : "DOWN"
+          //         : g.close_price > g.lock_price
+          //         ? "UP"
+          //         : g.close_price === g.lock_price
+          //         ? "/"
+          //         : "DOWN";
+          //     res[`%change ${i}`] =
+          //       i === 1
+          //         ? (
+          //             ((-g.lock_price + g.close_price) / g.lock_price) *
+          //             100
+          //           ).toFixed(4)
+          //         : (
+          //             ((-r[2].lock_price + r[2].close_price) /
+          //               r[2].lock_price) *
+          //             100
+          //           ).toFixed(4);
+          //   });
+          //   ress.push(res);
+          // });
+          results.map((r, index) => {
             let res = {};
-            r.map((g, i) => {
-              res["dateTime"] = blive[index][0]["datetime"];
-              res[`epoch${i}`] = g["epoch"];
-              res[`bear amount ${i}`] = g["bear_amount"];
-              res[`bull amount ${i}`] = g["bull_amount"];
-              res[`close price ${i}`] = g["close_price"];
-              res[`lock price ${i}`] = g["lock_price"];
-              res[`% price change  ${i}`] =
-                ((g.close_price - g.lock_price) / g.lock_price) * 100;
-              res[`price pool ${i}`] = g["total_amount"];
-              res[`up payout ${i}`] = g["up_payout"];
-              res[`down payout ${i}`] = g["down_payout"];
-              res[`result ${i}`] =
-                i === 1
-                  ? r[2].close_price > r[2].lock_price
-                    ? "UP"
-                    : r[2].close_price === r[2].lock_price
-                    ? "/"
-                    : "DOWN"
-                  : g.close_price > g.lock_price
-                  ? "UP"
-                  : g.close_price === g.lock_price
-                  ? "/"
-                  : "DOWN";
-              res[`%change ${i}`] =
-                i === 1
-                  ? (
-                      ((-g.lock_price + g.close_price) / g.lock_price) *
-                      100
-                    ).toFixed(4)
-                  : (
-                      ((-r[2].lock_price + r[2].close_price) /
-                        r[2].lock_price) *
-                      100
-                    ).toFixed(4);
-            });
+            res["dateTime"] = r["dateTime"];
+            res["epoch"] = r["epoch"];
+            res["Final Result"] = r["final"];
+            res["Predict Result"] = r["pred"];
+            res[`up payout`] = r["data"][0]["up_payout"];
+            res[`down payout`] = r["data"][0]["down_payout"];
+            // r.map((g, i) => {
+            //   res["dateTime"] = blive[index][0]["datetime"];
+            //   res[`epoch${i}`] = g["epoch"];
+            //   res[`bear amount ${i}`] = g["bear_amount"];
+            //   res[`bull amount ${i}`] = g["bull_amount"];
+            //   res[`close price ${i}`] = g["close_price"];
+            //   res[`lock price ${i}`] = g["lock_price"];
+            //   res[`% price change  ${i}`] =
+            //     ((g.close_price - g.lock_price) / g.lock_price) * 100;
+            //   res[`price pool ${i}`] = g["total_amount"];
+            //   res[`up payout ${i}`] = g["up_payout"];
+            //   res[`down payout ${i}`] = g["down_payout"];
+            // });
             ress.push(res);
           });
           setBNBData(ress);
