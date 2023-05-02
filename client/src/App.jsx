@@ -102,7 +102,7 @@ function App() {
           // });
           results.map((r, index) => {
             let res = {};
-            res["dateTime"] = r["dateTime"];
+            res["dateTime"] = moment(r["dateTime"]).format("YYYY-MM-DD HH:mm");
             res["epoch"] = r["epoch"];
             res["Final Result"] = r["final"];
             res["Predict Result"] = r["pred"];
