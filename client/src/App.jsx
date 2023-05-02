@@ -182,16 +182,16 @@ function App() {
                     : "UP"
                   : ""
                 : "";
-          });
-          // console.log("final", results);
-          setResult(results);
 
-          if (r["pred2"] === r["final"]) {
-            setWin2((prev) => prev + 1);
-          }
-          if (r["pred2"] !== "") {
-            setCount2((prev) => prev + 1);
-          }
+            if (r["pred2"] === r["final"]) {
+              setWin2((prev) => prev + 1);
+            }
+            if (r["pred2"] !== "") {
+              setCount2((prev) => prev + 1);
+            }
+          });
+
+          setResult(results);
 
           let ress = [];
 
