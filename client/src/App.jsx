@@ -170,10 +170,10 @@ function App() {
           });
           results.forEach((r, index) => {
             r["pred2"] =
-              index <= results.length - 5
-                ? results[index + 1]["final"] === results[index + 2]["final"] &&
-                  results[index + 2]["final"] === results[index + 3]["final"] &&
-                  results[index + 1]["final"] === results[index + 3]["final"]
+              index <= results.length - 3
+                ? results[index + 1]["final"] === results[index + 2]?.final &&
+                  results[index + 2]?.final === results[index + 3]?.final &&
+                  results[index + 1]["final"] === results[index + 3]?.final
                   ? results[index + 1]["final"] === "UP"
                     ? "DOWN"
                     : "UP"
