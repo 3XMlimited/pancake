@@ -8,10 +8,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState("pancake");
   const [bnbdata, setBNBData] = useState([]);
+  const [hover, setHover] = useState("");
 
   const pancake =
     "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png";
   const bnb = "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png";
+  console.log(result);
   const handleClick = () => {
     setIsLoading(true);
     axios
@@ -134,6 +136,9 @@ function App() {
                   <thead className="">
                     <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
                       <th className="border border-x-1 px-2 "></th>
+                      <th className="border border-x-1 px-2 " colSpan={2}>
+                        RESULT
+                      </th>
                       <th className="border border-x-1 px-2 " colSpan={8}>
                         Next
                       </th>
@@ -158,6 +163,8 @@ function App() {
                   <thead className="">
                     <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
                       <th className="border border-x-1 px-2 ">dateTime</th>
+                      <th className="border border-x-1 px-2 ">FINAL</th>
+                      <th className="border border-x-1 px-2 ">PRED </th>
                       <th className="border border-x-1 px-2 ">epoch</th>
                       <th className="border border-x-1 px-2 ">Up payout</th>
                       <th className="border border-x-1 px-2 ">Down payout</th>
@@ -227,14 +234,55 @@ function App() {
                           index % 2 == 0
                             ? "bg-gray-200 dark:bg-gray-200"
                             : "dark:bg-white"
+                        } ${
+                          hover === index ? "bg-blue-200" : ""
                         }   dark:text-black  w-full `}
                         key={index}
+                        onClick={() => setHover(index)}
                       >
                         <td className="text-center border border-r-1  w-full">
                           <p className="w-[200px]">
                             {moment(r.dateTime).format("YYYY-MM-DD HH:mm")}
                           </p>
                         </td>
+
+                        {result[index + 2]?.data && (
+                          <td className="text-center border border-r-1  w-full">
+                            <p>
+                              {result[index + 2].data[2].close_price <
+                              result[index + 2].data[2].lock_price
+                                ? "DOWN"
+                                : result[index + 2].data[2].close_price >
+                                  result[index + 2].data[2].lock_price
+                                ? "UP"
+                                : ""}
+                            </p>
+                          </td>
+                        )}
+
+                        {r?.data?.[0] && isLoading === false && (
+                          <td className="text-center border border-r-1  w-full">
+                            <p
+                              className={`${
+                                r.data[0].down_payout < 1.4 &&
+                                r.data[2].close_price < r.data[2].lock_price
+                                  ? "text-[#31d0aa]"
+                                  : r.data[0].up_payout < 1.4 &&
+                                    r.data[2].close_price > r.data[2].lock_price
+                                  ? "text-[#ed4b93]"
+                                  : ""
+                              }`}
+                            >
+                              {r.data[0].down_payout < 1.4 &&
+                              r.data[2].close_price < r.data[2].lock_price
+                                ? "UP"
+                                : r?.data[0].up_payout < 1.4 &&
+                                  r?.data[2].close_price > r.data[2].lock_price
+                                ? "DOWN"
+                                : ""}
+                            </p>
+                          </td>
+                        )}
 
                         {r.data?.map((s, i) =>
                           i === 1 ? (
