@@ -154,3 +154,9 @@ if __name__ == "__main__":
 
     # Send to AWS timestream
     # timestream_write(store_dict)
+
+
+# {'epoch': 168059, 'datetime': '2023-05-02 05:52:00', 'hour': 5, 'minute': 52, 'second': 0, 'lock_price': 0.0, 'close_price': 0.0,
+#     'total_amount': 2.16558, 'bull_amount': 0.99484, 'bear_amount': 1.17074, 'bull_ratio': 1.85, 'bear_ratio': 2.18}
+# {'epoch': 168057, 'datetime': '2023-05-02 05:41:46', 'hour': 5, 'minute': 41, 'second': 46, 'lock_price': 323.76,
+#     'close_price': 323.94, 'total_amount': 8.92837, 'bull_amount': 6.27178, 'bear_amount': 2.6566, 'bull_ratio': 3.36, 'bear_ratio': 1.42}
