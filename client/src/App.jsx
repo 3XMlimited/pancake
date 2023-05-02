@@ -26,15 +26,16 @@ function App() {
           const results = response.data.result
             .reverse()
             .sort((a, b) => new Date(a.datetime) - new Date(b.dateTime));
-          const indexs = [results.length - 1, results.length - 2];
+          // const indexs = [results.length - 1, results.length - 2];
+          const indexs = [0, 1];
           results.forEach((r, index) => {
             r["final"] = indexs.includes(index)
               ? ""
-              : results[index + 2]?.data[2].close_price <
-                results[index + 2]?.data[2].lock_price
+              : results[index - 2]?.data[2].close_price <
+                results[index - 2]?.data[2].lock_price
               ? "DOWN"
-              : results[index + 2]?.data[2].close_price >
-                results[index + 2]?.data[2].lock_price
+              : results[index - 2]?.data[2].close_price >
+                results[index - 2]?.data[2].lock_price
               ? "UP"
               : "";
             r["pred"] =
