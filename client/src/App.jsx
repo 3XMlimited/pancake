@@ -232,7 +232,9 @@ function App() {
                       <tr
                         className={`${
                           index % 2 == 0
-                            ? "bg-gray-200 dark:bg-gray-200"
+                            ? hover === index
+                              ? "bg-blue-200 dark:bg-blue-200"
+                              : "bg-gray-200 dark:bg-gray-200"
                             : "dark:bg-white"
                         } ${
                           hover === index ? "bg-blue-200" : ""
