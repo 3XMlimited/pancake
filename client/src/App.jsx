@@ -17,6 +17,9 @@ function App() {
   const [count, setCount] = useState(0);
   const [win, setWin] = useState(0);
 
+  const [count2, setCount2] = useState(0);
+  const [win2, setWin2] = useState(0);
+
   const pancake =
     "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png";
   const bnb = "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png";
@@ -180,8 +183,15 @@ function App() {
                   : ""
                 : "";
           });
-          console.log("final", results);
+          // console.log("final", results);
           setResult(results);
+
+          if (r["pred2"] === r["final"]) {
+            setWin2((prev) => prev + 1);
+          }
+          if (r["pred2"] !== "") {
+            setCount2((prev) => prev + 1);
+          }
 
           let ress = [];
 
@@ -295,7 +305,10 @@ function App() {
               <option value="bnb/live_test">TEST</option>
             </select>
             <div className="dark:text-black text-center font-bold  p-2">
-              {win} / {count} ~ {(win / count).toFixed(3)}
+              PRED1: {win} / {count} ~ {(win / count).toFixed(3)}
+            </div>
+            <div className="dark:text-black text-center font-bold  p-2">
+              PRED2: {win2} / {count2} ~ {(win2 / count2).toFixed(3)}
             </div>
           </div>
           {data === "bnb/live" ? (
