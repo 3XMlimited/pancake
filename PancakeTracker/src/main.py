@@ -76,12 +76,26 @@ if __name__ == "__main__":
 
     TD = {"epoch": epoch_0, "data": Data, "dateTime": now}
     print(TD)
+
     # save to DB
     connection_url = "mongodb+srv://3XM:chuchupa888@cluster0.6uckc.mongodb.net/pancakes?retryWrites=true&w=majority"
     myclient = MongoClient(connection_url, tlsCAFile=certifi.where())
     db = myclient["pancakes"]
     Collection = db["bnb/live"]
-    Collection.insert_one(TD)
+
+    if result_dict_0['up_payout'] == result_dict_1["up_payout"] and result_dict_0['down_payout'] == result_dict_1["down_payout"]:
+        for x in Collection.find():
+            if x['epoch'] == result_dict_0['epoch']:
+                res = x['data'][0]
+        myquery = {"epoch": result_dict_0['epoch']}
+        newData = Data
+        newData[0] = res
+        newvalues = {"$set": {'data': newData}}
+        Collection.update_one(myquery,   newvalues)
+        print(result_dict_0['epoch'], "update....")
+
+    else:
+        Collection.insert_one(TD)
     print("finish:", now)
 
     # Get changes - Current Epoch

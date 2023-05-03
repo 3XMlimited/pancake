@@ -175,10 +175,10 @@ function App() {
           results.forEach((r, index) => {
             r["pred2"] =
               index <= results.length - 3
-                ? results[index + 1]["final"] === results[index + 2]?.final &&
-                  results[index + 2]?.final === results[index + 3]?.final &&
-                  results[index + 1]["final"] === results[index + 3]?.final
-                  ? results[index + 1]["final"] === "UP"
+                ? results[index + 2]["final"] === results[index + 3]?.final &&
+                  results[index + 3]?.final === results[index + 4]?.final &&
+                  results[index + 2]["final"] === results[index + 4]?.final
+                  ? results[index + 2]["final"] === "UP"
                     ? "DOWN"
                     : "UP"
                   : ""
@@ -288,6 +288,8 @@ function App() {
                 handleClick();
                 setCount(0);
                 setWin(0);
+                setCount2(0);
+                setWin2(0);
               }}
             >
               Refresh
