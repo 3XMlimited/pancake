@@ -171,6 +171,7 @@ function App() {
               setCount((prev) => prev + 1);
             }
           });
+
           results.forEach((r, index) => {
             r["pred2"] =
               index <= results.length - 3
@@ -203,33 +204,37 @@ function App() {
             res["Final Result"] = r["final"];
             res["Predict Result"] = r["pred"];
             res["Predict Result 2"] = r["pred2"];
-            res[`NEXT UP Payout`] = r["data"][0]["up_payout"];
-            res[`NEXT DOWN Payout`] = r["data"][0]["down_payout"];
-            res[`LIVE last price`] = r["data"][1]["close_price"];
-            res[`LIVE lock price`] = r["data"][1]["lock_price"];
-            res[`LIVE %price change`] = (
-              ((r["data"][1].close_price - r["data"][1].lock_price) /
-                r["data"][1].lock_price) *
-              100
-            ).toFixed(4);
-            res[`LIVE UP Payout`] = r.data[1]["up_payout"];
-            res[`LIVE DOWN Payout`] = r.data[1]["up_payout"];
 
-            res[`PREV1 last price`] = r["data"][2]["close_price"];
-            res[`PREV1 lock price`] = r["data"][2]["lock_price"];
+            res[`LIVE UP Payout`] = r["data"][0]["up_payout"];
+            res[`LIVE DOWN Payout`] = r["data"][0]["down_payout"];
+            res[`FIXED UP Payout`] = results[index - 2]?.data[2]["up_payout"];
+            res[`FIXED DOWN Payout`] =
+              results[index - 2]?.data[2]["down_payout"];
+            // res[`NEXT UP Payout`] = r["data"][0]["up_payout"];
+            // res[`NEXT DOWN Payout`] = r["data"][0]["down_payout"];
+            // res[`LIVE last price`] = r["data"][1]["close_price"];
+            // res[`LIVE lock price`] = r["data"][1]["lock_price"];
+            // res[`LIVE %price change`] = (
+            //   ((r["data"][1].close_price - r["data"][1].lock_price) /
+            //     r["data"][1].lock_price) *
+            //   100
+            // ).toFixed(4);
+            // res[`LIVE UP Payout`] = r.data[1]["up_payout"];
+            // res[`LIVE DOWN Payout`] = r.data[1]["up_payout"];
 
-            res[`PREV UP Payout`] = r["data"][2]["up_payout"];
-            res[`PREV DOWN Payout`] = r["data"][2]["down_payout"];
-            res[`PREV result`] =
-              r["data"][2]["close_price"] - r["data"][2]["lock_price"] > 0
-                ? "UP"
-                : "DOWN";
+            // res[`PREV1 last price`] = r["data"][2]["close_price"];
+            // res[`PREV1 lock price`] = r["data"][2]["lock_price"];
 
-            res[`PREV1 %price change`] = (
-              ((r.data[2].close_price - r["data"][2].lock_price) /
-                r.data[2].lock_price) *
-              100
-            ).toFixed(4);
+            // res[`PREV result`] =
+            //   r["data"][2]["close_price"] - r["data"][2]["lock_price"] > 0
+            //     ? "UP"
+            //     : "DOWN";
+
+            // res[`PREV1 %price change`] = (
+            //   ((r.data[2].close_price - r["data"][2].lock_price) /
+            //     r.data[2].lock_price) *
+            //   100
+            // ).toFixed(4);
 
             ress.push(res);
           });

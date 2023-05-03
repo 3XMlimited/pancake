@@ -9,27 +9,27 @@ const TableTest = ({ result, isLoading }) => {
         <table className="w-full  h-[50%] overflow-y-scroll">
           <thead className="">
             <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
-              <th className="border border-x-1 px-2 " colSpan={2}></th>
+              <th className="border border-x-1 px-2 "></th>
               <th className="border border-x-1 px-2 " colSpan={3}>
                 RESULT
               </th>
               <th className="border border-x-1 px-2 " colSpan={2}>
-                Next
+                LIVE
               </th>
 
-              <th className="border border-x-1 px-2 " colSpan={5}>
+              {/* <th className="border border-x-1 px-2 " colSpan={2}>
                 Live
-              </th>
+              </th> */}
 
-              <th className="border border-x-1 px-2 " colSpan={6}>
-                Previous 1
+              <th className="border border-x-1 px-2 " colSpan={2}>
+                FIXED
               </th>
             </tr>
           </thead>
           <thead className="">
             <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
+              {/* <th className="border border-x-1 px-2 ">dateTime</th> */}
               <th className="border border-x-1 px-2 ">epoch</th>
-              <th className="border border-x-1 px-2 ">dateTime</th>
               <th className="border border-x-1 px-2 ">FINAL</th>
               <th className="border border-x-1 px-2 ">PRED </th>
               <th className="border border-x-1 px-2 ">PRED 2 </th>
@@ -40,18 +40,20 @@ const TableTest = ({ result, isLoading }) => {
               {/* <th className="border border-x-1 px-2 "> Prev Result</th>
               <th className="border border-x-1 px-2 ">Prev %Change</th> */}
 
-              <th className="border border-x-1 px-2 ">Last Price </th>
-              <th className="border border-x-1 px-2 ">Lock Price </th>
-              <th className="border border-x-1 px-2 ">% Price Change </th>
-              <th className="border border-x-1 px-2 ">Up payout</th>
-              <th className="border border-x-1 px-2 ">Down payout</th>
+              {/* <th className="border border-x-1 px-2 ">epoch</th> */}
+              {/* <th className="border border-x-1 px-2 ">Last Price </th>
+              <th className="border border-x-1 px-2 ">Lock Price </th> */}
+              {/* <th className="border border-x-1 px-2 ">% Price Change </th> */}
+              {/* <th className="border border-x-1 px-2 ">Up payout</th>
+              <th className="border border-x-1 px-2 ">Down payout</th> */}
 
-              <th className="border border-x-1 px-2 ">Close Price </th>
-              <th className="border border-x-1 px-2 ">Lock Price </th>
+              {/* <th className="border border-x-1 px-2 ">epoch</th> */}
+              {/* <th className="border border-x-1 px-2 ">Close Price </th>
+              <th className="border border-x-1 px-2 ">Lock Price </th> */}
               <th className="border border-x-1 px-2 ">Up payout</th>
               <th className="border border-x-1 px-2 ">Down payout </th>
-              <th className="border border-x-1 px-2 ">Result</th>
-              <th className="border border-x-1 px-2 ">%Change</th>
+              {/* <th className="border border-x-1 px-2 ">Result</th>
+              <th className="border border-x-1 px-2 ">%Change</th> */}
             </tr>
           </thead>
           <tbody className="w-full">
@@ -73,11 +75,11 @@ const TableTest = ({ result, isLoading }) => {
                   {r.epoch}
                 </td>
 
-                <td className="text-center border border-r-1  w-[150px]">
+                {/* <td className="text-center border border-r-1  w-[150px]">
                   <p className="w-[150px]">
                     {moment(r.dateTime).format("YYYY-MM-DD HH:mm")}
                   </p>
-                </td>
+                </td> */}
 
                 {result[index - 2]?.data ? (
                   <td className="text-center border border-r-1  ">
@@ -126,16 +128,16 @@ const TableTest = ({ result, isLoading }) => {
                   i === 1 ? (
                     <>
                       {/* <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
-                        {r.data[0].epoch}
+                        {result[index - 1]?.data[1].epoch}
                       </td> */}
 
-                      <td className="text-center border border-r-1 ">
+                      {/* <td className="text-center border border-r-1 ">
                         {s.close_price}
                       </td>
                       <td className="text-center border border-r-1 ">
                         {s.lock_price}
-                      </td>
-                      <td
+                      </td> */}
+                      {/* <td
                         className={`text-center border border-r-1 ${
                           ((s.close_price - s.lock_price) / s.lock_price) *
                             100 >
@@ -148,22 +150,56 @@ const TableTest = ({ result, isLoading }) => {
                           ((s.close_price - s.lock_price) / s.lock_price) *
                           100
                         ).toFixed(4)}
-                      </td>
+                      </td> */}
 
-                      <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
-                        {s.up_payout}
+                      {/* <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
+                        {result[index - 1]?.data[1].up_payout}
                       </td>
                       <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
-                        {s.down_payout}
+                        {result[index - 1]?.data[1].down_payout}
+                      </td> */}
+                    </>
+                  ) : i === 2 ? (
+                    <>
+                      {/* <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
+                        {result[index - 2]?.data[2].epoch}
+                      </td> */}
+
+                      {/* <td className="text-center border border-r-1 ">
+                        {s.close_price}
+                      </td>
+                      <td className="text-center border border-r-1 ">
+                        {s.lock_price}
+                      </td> */}
+                      {/* <td
+                        className={`text-center border border-r-1 ${
+                          ((s.close_price - s.lock_price) / s.lock_price) *
+                            100 >
+                          0
+                            ? "text-[#31d0aa]"
+                            : "text-[#ed4b93]"
+                        }`}
+                      >
+                        {(
+                          ((s.close_price - s.lock_price) / s.lock_price) *
+                          100
+                        ).toFixed(4)}
+                      </td> */}
+
+                      <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
+                        {result[index - 2]?.data[2].up_payout}
+                      </td>
+                      <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
+                        {result[index - 2]?.data[2].down_payout}
                       </td>
                     </>
                   ) : (
                     i < 3 && (
                       <>
                         {/* <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
-                          {r.data[0].epoch}
+                          {s.epoch}
                         </td> */}
-                        {i !== 0 && (
+                        {/* {i !== 0 && (
                           <>
                             <td className="text-center border border-r-1 ">
                               {s.close_price}
@@ -172,7 +208,7 @@ const TableTest = ({ result, isLoading }) => {
                               {s.lock_price}
                             </td>
                           </>
-                        )}
+                        )} */}
 
                         <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
                           {s.up_payout}
@@ -180,7 +216,7 @@ const TableTest = ({ result, isLoading }) => {
                         <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
                           {s.down_payout}
                         </td>
-                        <td
+                        {/* <td
                           className={`text-center border border-r-1  ${
                             s.close_price > s.lock_price
                               ? "bg-[#31d0aa]"
@@ -208,7 +244,7 @@ const TableTest = ({ result, isLoading }) => {
                             ((-s.lock_price + s.close_price) / s.lock_price) *
                             100
                           ).toFixed(4)}
-                        </td>
+                        </td> */}
                       </>
                     )
                   )
