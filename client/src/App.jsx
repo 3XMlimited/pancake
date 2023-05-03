@@ -167,18 +167,12 @@ function App() {
               : "";
             r["pred"] =
               r.data[0].down_payout < 1.4 &&
-              r.data[2].close_price < r.data[2].lock_price
-                ? "UP"
-                : r?.data[0].up_payout < 1.4 &&
-                  r?.data[2].close_price > r.data[2].lock_price
+              r.data[2].close_price > r.data[2].lock_price
                 ? "DOWN"
+                : r?.data[0].up_payout < 1.4 &&
+                  r?.data[2].close_price < r.data[2].lock_price
+                ? "UP"
                 : "";
-            // if (r["pred"] === r["final"]) {
-            //   setWin((prev) => prev + 1);
-            // }
-            // if (r["pred"] !== "") {
-            //   setCount((prev) => prev + 1);
-            // }
 
             if (r["pred"] !== "") {
               setRate((prev) => ({ ...prev, count1: prev.count1 + 1 }));
