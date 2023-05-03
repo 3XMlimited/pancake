@@ -328,10 +328,14 @@ function App() {
               className="bg-green-500 p-2 px-6  text-white rounded-md font-bold"
               onClick={() => {
                 handleClick();
-                setCount(0);
-                setWin(0);
-                setCount2(0);
-                setWin2(0);
+                setRate({
+                  win1: 0,
+                  count1: 0,
+                  win2: 0,
+                  count2: 0,
+                  win3: 0,
+                  count3: 0,
+                });
               }}
             >
               Refresh
