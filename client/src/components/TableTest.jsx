@@ -21,7 +21,7 @@ const TableTest = ({ result, isLoading }) => {
                 Live
               </th> */}
 
-              <th className="border border-x-1 px-2 " colSpan={2}>
+              <th className="border border-x-1 px-2 " colSpan={3}>
                 FIXED
               </th>
             </tr>
@@ -53,8 +53,8 @@ const TableTest = ({ result, isLoading }) => {
               <th className="border border-x-1 px-2 ">Lock Price </th> */}
               <th className="border border-x-1 px-2 ">Up payout</th>
               <th className="border border-x-1 px-2 ">Down payout </th>
-              {/* <th className="border border-x-1 px-2 ">Result</th>
-              <th className="border border-x-1 px-2 ">%Change</th> */}
+              {/* <th className="border border-x-1 px-2 ">Result</th> */}
+              <th className="border border-x-1 px-2 ">%Change</th>
             </tr>
           </thead>
           <tbody className="w-full">
@@ -175,7 +175,7 @@ const TableTest = ({ result, isLoading }) => {
                       <td className="text-center border border-r-1 ">
                         {s.lock_price}
                       </td> */}
-                      {/* <td
+                      <td
                         className={`text-center border border-r-1 ${
                           ((s.close_price - s.lock_price) / s.lock_price) *
                             100 >
@@ -188,7 +188,7 @@ const TableTest = ({ result, isLoading }) => {
                           ((s.close_price - s.lock_price) / s.lock_price) *
                           100
                         ).toFixed(4)}
-                      </td> */}
+                      </td>
 
                       {/* <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
                         {result[index - 2]?.data[2].up_payout}

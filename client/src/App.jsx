@@ -266,11 +266,11 @@ function App() {
             //     ? "UP"
             //     : "DOWN";
 
-            // res[`PREV1 %price change`] = (
-            //   ((r.data[2].close_price - r["data"][2].lock_price) /
-            //     r.data[2].lock_price) *
-            //   100
-            // ).toFixed(4);
+            res[`PREV1 %price change`] = (
+              ((r.data[2].close_price - r["data"][2].lock_price) /
+                r.data[2].lock_price) *
+              100
+            ).toFixed(4);
 
             ress.push(res);
           });
