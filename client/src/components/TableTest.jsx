@@ -152,12 +152,12 @@ const TableTest = ({ result, isLoading }) => {
                         ).toFixed(4)}
                       </td> */}
 
-                      {/* <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
+                      <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
                         {result[index - 1]?.data[1].up_payout}
                       </td>
                       <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
                         {result[index - 1]?.data[1].down_payout}
-                      </td> */}
+                      </td>
                     </>
                   ) : i === 2 ? (
                     <>
@@ -186,15 +186,15 @@ const TableTest = ({ result, isLoading }) => {
                         ).toFixed(4)}
                       </td> */}
 
-                      <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
+                      {/* <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
                         {result[index - 2]?.data[2].up_payout}
                       </td>
                       <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
                         {result[index - 2]?.data[2].down_payout}
-                      </td>
+                      </td> */}
                     </>
                   ) : (
-                    i < 3 && (
+                    i == 0 && (
                       <>
                         {/* <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
                           {s.epoch}

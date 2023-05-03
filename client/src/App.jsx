@@ -207,9 +207,9 @@ function App() {
 
             res[`LIVE UP Payout`] = r["data"][0]["up_payout"];
             res[`LIVE DOWN Payout`] = r["data"][0]["down_payout"];
-            res[`FIXED UP Payout`] = results[index - 2]?.data[2]["up_payout"];
+            res[`FIXED UP Payout`] = results[index - 1]?.data[1]["up_payout"];
             res[`FIXED DOWN Payout`] =
-              results[index - 2]?.data[2]["down_payout"];
+              results[index - 1]?.data[1]["down_payout"];
             // res[`NEXT UP Payout`] = r["data"][0]["up_payout"];
             // res[`NEXT DOWN Payout`] = r["data"][0]["down_payout"];
             // res[`LIVE last price`] = r["data"][1]["close_price"];
