@@ -10,7 +10,7 @@ const TableTest = ({ result, isLoading }) => {
           <thead className="">
             <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
               <th className="border border-x-1 px-2 "></th>
-              <th className="border border-x-1 px-2 " colSpan={3}>
+              <th className="border border-x-1 px-2 " colSpan={4}>
                 RESULT
               </th>
               <th className="border border-x-1 px-2 " colSpan={2}>
@@ -32,7 +32,8 @@ const TableTest = ({ result, isLoading }) => {
               <th className="border border-x-1 px-2 ">epoch</th>
               <th className="border border-x-1 px-2 ">FINAL</th>
               <th className="border border-x-1 px-2 ">PRED </th>
-              <th className="border border-x-1 px-2 ">PRED 2 </th>
+              <th className="border border-x-1 px-2 ">PRED 3X </th>
+              <th className="border border-x-1 px-2 ">PRED 4X </th>
 
               <th className="border border-x-1 px-2 ">Up payout</th>
               <th className="border border-x-1 px-2 ">Down payout</th>
@@ -122,6 +123,9 @@ const TableTest = ({ result, isLoading }) => {
                 )}
                 <td className="text-center border border-r-1  ">
                   <p>{r.pred2}</p>
+                </td>
+                <td className="text-center border border-r-1  ">
+                  <p>{r.pred3}</p>
                 </td>
 
                 {r.data?.map((s, i) =>

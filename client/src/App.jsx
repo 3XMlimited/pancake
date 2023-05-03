@@ -20,6 +20,15 @@ function App() {
   const [count2, setCount2] = useState(0);
   const [win2, setWin2] = useState(0);
 
+  const [rate, setRate] = useState({
+    win1: 0,
+    count1: 0,
+    win2: 0,
+    count2: 0,
+    win3: 0,
+    count3: 0,
+  });
+
   const pancake =
     "https://pancakeswap.finance/images/tokens/0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82.png";
   const bnb = "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png";
@@ -164,17 +173,24 @@ function App() {
                   r?.data[2].close_price > r.data[2].lock_price
                 ? "DOWN"
                 : "";
-            if (r["pred"] === r["final"]) {
-              setWin((prev) => prev + 1);
-            }
+            // if (r["pred"] === r["final"]) {
+            //   setWin((prev) => prev + 1);
+            // }
+            // if (r["pred"] !== "") {
+            //   setCount((prev) => prev + 1);
+            // }
+
             if (r["pred"] !== "") {
-              setCount((prev) => prev + 1);
+              setRate((prev) => ({ ...prev, count1: prev.count1 + 1 }));
+              if (r["pred"] === r["final"]) {
+                setRate((prev) => ({ ...prev, win1: prev.win1 + 1 }));
+              }
             }
           });
 
           results.forEach((r, index) => {
             r["pred2"] =
-              index <= results.length - 3
+              index <= results.length - 4
                 ? results[index + 2]["final"] === results[index + 3]?.final &&
                   results[index + 3]?.final === results[index + 4]?.final &&
                   results[index + 2]["final"] === results[index + 4]?.final
@@ -184,11 +200,36 @@ function App() {
                   : ""
                 : "";
 
-            if (r["pred2"] === r["final"]) {
-              setWin2((prev) => prev + 1);
-            }
+            r["pred3"] =
+              index <= results.length - 5
+                ? results[index + 2]?.final === results[index + 3]?.final &&
+                  results[index + 2]?.final === results[index + 4]?.final &&
+                  results[index + 2]?.final === results[index + 5]?.final &&
+                  results[index + 3]?.final === results[index + 4]?.final &&
+                  results[index + 3]?.final === results[index + 5]?.final &&
+                  results[index + 4]?.final === results[index + 5]?.final
+                  ? results[index + 2]["final"] === "UP"
+                    ? "DOWN"
+                    : "UP"
+                  : ""
+                : "";
+
+            // if (r["pred2"] === r["final"]) {
+            //   setWin2((prev) => prev + 1);
+            // }
             if (r["pred2"] !== "") {
-              setCount2((prev) => prev + 1);
+              // setCount2((prev) => prev + 1);
+              setRate((prev) => ({ ...prev, count2: prev.count2 + 1 }));
+              if (r["pred2"] === r["final"]) {
+                setRate((prev) => ({ ...prev, win2: prev.win2 + 1 }));
+              }
+            }
+
+            if (r["pred3"] !== "") {
+              setRate((prev) => ({ ...prev, count3: prev.count3 + 1 }));
+              if (r["pred3"] === r["final"]) {
+                setRate((prev) => ({ ...prev, win3: prev.win3 + 1 }));
+              }
             }
           });
 
@@ -204,6 +245,7 @@ function App() {
             res["Final Result"] = r["final"];
             res["Predict Result"] = r["pred"];
             res["Predict Result 2"] = r["pred2"];
+            res["Predict Result 3"] = r["pred3"];
 
             res[`LIVE UP Payout`] = r["data"][0]["up_payout"];
             res[`LIVE DOWN Payout`] = r["data"][0]["down_payout"];
@@ -253,7 +295,7 @@ function App() {
   useEffect(() => {
     handleClick();
   }, [data]);
-
+  console.log(rate);
   return (
     <div className="w-screen h-full dark:bg-white">
       {isLoading ? (
@@ -312,10 +354,16 @@ function App() {
               <option value="bnb/live_test">TEST</option>
             </select>
             <div className="dark:text-black text-center font-bold  p-2">
-              PRED1: {win} / {count} ~ {(win / count).toFixed(3)}
+              PRED1: {rate.win1} / {rate.count1} ~{" "}
+              {(rate.win1 / rate.count1).toFixed(3)}
             </div>
             <div className="dark:text-black text-center font-bold  p-2">
-              PRED2: {win2} / {count2} ~ {(win2 / count2).toFixed(3)}
+              X3: {rate.win2} / {rate.count2} ~{" "}
+              {(rate.win2 / rate.count2).toFixed(3)}
+            </div>
+            <div className="dark:text-black text-center font-bold  p-2">
+              X4: {rate.win3} / {rate.count3} ~{" "}
+              {(rate.win3 / rate.count3).toFixed(3)}
             </div>
           </div>
           {data === "bnb/live" ? (
