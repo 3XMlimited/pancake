@@ -14,12 +14,6 @@ function App() {
   const [bnbdata, setBNBData] = useState([]);
   const [bnbdatatest, setBNBDataTEST] = useState([]);
 
-  const [count, setCount] = useState(0);
-  const [win, setWin] = useState(0);
-
-  const [count2, setCount2] = useState(0);
-  const [win2, setWin2] = useState(0);
-
   const [rate, setRate] = useState({
     win1: 0,
     count1: 0,
@@ -40,7 +34,11 @@ function App() {
     axios
       .get(
         `https://thewordartisan.online/api/v1/pancake?dbname=${
-          data === "bnb/live_test" ? "bnb/live" : data
+          data === "bnb/live_test"
+            ? "bnb/live"
+            : data === "cake/live_test"
+            ? "cake/live"
+            : data
         }`
       )
       .then(function (response) {
@@ -296,6 +294,132 @@ function App() {
           });
 
           setBNBDataTEST(ress);
+        } else if (data === "cake/live_test") {
+          const results = response.data.result
+            .reverse()
+            .sort((a, b) => new Date(a.datetime) - new Date(b.dateTime));
+          // const indexs = [results.length - 1, results.length - 2];
+          const indexs = [0, 1];
+          results.forEach((r, index) => {
+            r["final"] = indexs.includes(index)
+              ? ""
+              : results[index - 2]?.data[2].close_price <
+                results[index - 2]?.data[2].lock_price
+              ? "DOWN"
+              : results[index - 2]?.data[2].close_price >
+                results[index - 2]?.data[2].lock_price
+              ? "UP"
+              : "";
+            r["pred"] =
+              r.data[0].down_payout < 1.4 &&
+              r.data[2].close_price > r.data[2].lock_price
+                ? "DOWN"
+                : r?.data[0].up_payout < 1.4 &&
+                  r?.data[2].close_price < r.data[2].lock_price
+                ? "UP"
+                : "";
+            r["pred4"] =
+              r.data[2].up_payout > 2 &&
+              r.data[3].up_payout > 2 &&
+              r.data[4].up_payout > 2
+                ? "UP"
+                : r.data[2].down_payout > 2 &&
+                  r.data[3].down_payout > 2 &&
+                  r.data[4].down_payout > 2
+                ? "DOWN"
+                : "";
+
+            if (r["pred"] !== "") {
+              setRate((prev) => ({ ...prev, count1: prev.count1 + 1 }));
+              if (r["pred"] === r["final"]) {
+                setRate((prev) => ({ ...prev, win1: prev.win1 + 1 }));
+              }
+            }
+
+            if (r["pred4"] !== "") {
+              setRate((prev) => ({ ...prev, count4: prev.count4 + 1 }));
+              if (r["pred4"] === r["final"]) {
+                setRate((prev) => ({ ...prev, win4: prev.win4 + 1 }));
+              }
+            }
+          });
+
+          results.forEach((r, index) => {
+            r["pred2"] =
+              index <= results.length - 4
+                ? results[index + 2]["final"] === results[index + 3]?.final &&
+                  results[index + 3]?.final === results[index + 4]?.final &&
+                  results[index + 2]["final"] === results[index + 4]?.final
+                  ? results[index + 2]["final"] === "UP"
+                    ? "DOWN"
+                    : "UP"
+                  : ""
+                : "";
+
+            r["pred3"] =
+              index <= results.length - 5
+                ? results[index + 2]?.final === results[index + 3]?.final &&
+                  results[index + 2]?.final === results[index + 4]?.final &&
+                  results[index + 2]?.final === results[index + 5]?.final &&
+                  results[index + 3]?.final === results[index + 4]?.final &&
+                  results[index + 3]?.final === results[index + 5]?.final &&
+                  results[index + 4]?.final === results[index + 5]?.final
+                  ? results[index + 2]["final"] === "UP"
+                    ? "DOWN"
+                    : "UP"
+                  : ""
+                : "";
+
+            // if (r["pred2"] === r["final"]) {
+            //   setWin2((prev) => prev + 1);
+            // }
+            if (r["pred2"] !== "") {
+              // setCount2((prev) => prev + 1);
+              setRate((prev) => ({ ...prev, count2: prev.count2 + 1 }));
+              if (r["pred2"] === r["final"]) {
+                setRate((prev) => ({ ...prev, win2: prev.win2 + 1 }));
+              }
+            }
+
+            if (r["pred3"] !== "") {
+              setRate((prev) => ({ ...prev, count3: prev.count3 + 1 }));
+              if (r["pred3"] === r["final"]) {
+                setRate((prev) => ({ ...prev, win3: prev.win3 + 1 }));
+              }
+            }
+          });
+
+          setResult(results);
+
+          let ress = [];
+
+          results.map((r, index) => {
+            let res = {};
+            res["epoch"] = r["epoch"];
+            res["dateTime"] = moment(r["dateTime"]).format("YYYY-MM-DD HH:mm");
+
+            res["Final Result"] = r["final"];
+            res["Predict Result"] = r["pred"];
+            res["Predict Result 2"] = r["pred2"];
+            res["Predict Result 3"] = r["pred3"];
+            res["Predict Result 4"] = r["pred4"];
+
+            res[`LIVE UP Payout`] = r["data"][0]["up_payout"];
+            res[`LIVE DOWN Payout`] = r["data"][0]["down_payout"];
+            res[`FIXED UP Payout`] = results[index - 1]?.data[1]["up_payout"];
+            res[`FIXED DOWN Payout`] =
+              results[index - 1]?.data[1]["down_payout"];
+
+            res[`PREV1 %price change`] = (
+              ((r.data[2].close_price - r["data"][2].lock_price) /
+                r.data[2].lock_price) *
+              100
+            ).toFixed(4);
+
+            ress.push(res);
+          });
+
+          setBNBDataTEST(ress);
         } else {
           setResult(response.data.result.reverse());
         }
@@ -308,8 +432,18 @@ function App() {
 
   useEffect(() => {
     handleClick();
+    setRate({
+      win1: 0,
+      count1: 0,
+      win2: 0,
+      count2: 0,
+      win3: 0,
+      count3: 0,
+      win4: 0,
+      count4: 0,
+    });
   }, [data]);
-  console.log(rate);
+
   return (
     <div className="w-screen h-full dark:bg-white">
       {isLoading ? (
@@ -331,6 +465,8 @@ function App() {
                 data === "bnb/live"
                   ? bnbdata
                   : data === "bnb/live_test"
+                  ? bnbdatatest
+                  : data === "cake/live_test"
                   ? bnbdatatest
                   : result
               }
@@ -371,7 +507,8 @@ function App() {
               <option value="pancake">BNB</option>
               <option value="cake">CAKE</option>
               <option value="bnb/live">BNB/Live</option>
-              <option value="bnb/live_test">TEST</option>
+              <option value="bnb/live_test">TEST - BNB</option>
+              <option value="cake/live_test">TEST - CAKE</option>
             </select>
             <div className="dark:text-black text-center font-bold  p-2">
               PRED1: {rate.win1} / {rate.count1} ~{" "}
@@ -393,7 +530,7 @@ function App() {
           </div>
           {data === "bnb/live" ? (
             <TableLive result={result} isLoading={isLoading} />
-          ) : data === "bnb/live_test" ? (
+          ) : data === "bnb/live_test" || data === "cake/live_test" ? (
             <TableTest result={result} isLoading={isLoading} />
           ) : (
             <TableOrg result={result} isLoading={isLoading} />

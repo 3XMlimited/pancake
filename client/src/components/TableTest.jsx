@@ -34,7 +34,7 @@ const TableTest = ({ result, isLoading }) => {
               <th className="border border-x-1 px-2 ">PRED </th>
               <th className="border border-x-1 px-2 ">PRED 3X </th>
               <th className="border border-x-1 px-2 ">PRED 4X </th>
-              <th className="border border-x-1 px-2 ">PRED {">2"} </th>
+              <th className="border border-x-1 px-2 ">PRED 3X - ODDS</th>
 
               <th className="border border-x-1 px-2 ">Up payout</th>
               <th className="border border-x-1 px-2 ">Down payout</th>
@@ -161,10 +161,10 @@ const TableTest = ({ result, isLoading }) => {
                       </td> */}
 
                       <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
-                        {result[index - 1]?.data[1].up_payout}
+                        {result[index - 1]?.data[1].up_payout.toFixed(2)}
                       </td>
                       <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
-                        {result[index - 1]?.data[1].down_payout}
+                        {result[index - 1]?.data[1].down_payout.toFixed(2)}
                       </td>
                     </>
                   ) : i === 2 ? (
@@ -181,7 +181,9 @@ const TableTest = ({ result, isLoading }) => {
                       </td> */}
                       <td
                         className={`text-center border border-r-1 ${
-                          ((s.close_price - s.lock_price) / s.lock_price) *
+                          ((result[index - 2]?.data[2].close_price -
+                            result[index - 2]?.data[2].lock_price) /
+                            result[index - 2]?.data[2].lock_price) *
                             100 >
                           0
                             ? "text-[#31d0aa]"
@@ -189,7 +191,9 @@ const TableTest = ({ result, isLoading }) => {
                         }`}
                       >
                         {(
-                          ((s.close_price - s.lock_price) / s.lock_price) *
+                          ((result[index - 2]?.data[2].close_price -
+                            result[index - 2]?.data[2].lock_price) /
+                            result[index - 2]?.data[2].lock_price) *
                           100
                         ).toFixed(4)}
                       </td>
@@ -219,10 +223,10 @@ const TableTest = ({ result, isLoading }) => {
                         )} */}
 
                         <td className="text-center border border-r-1 bg-[#31d0aa] text-white  font-mono">
-                          {s.up_payout}
+                          {s.up_payout.toFixed(2)}
                         </td>
                         <td className="text-center border border-r-1 bg-[#ed4b93] text-white font-mono">
-                          {s.down_payout}
+                          {s.down_payout.toFixed(2)}
                         </td>
                         {/* <td
                           className={`text-center border border-r-1  ${
