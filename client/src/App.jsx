@@ -27,6 +27,8 @@ function App() {
     count2: 0,
     win3: 0,
     count3: 0,
+    win4: 0,
+    count4: 0,
   });
 
   const pancake =
@@ -173,11 +175,28 @@ function App() {
                   r?.data[2].close_price < r.data[2].lock_price
                 ? "UP"
                 : "";
+            r["pred4"] =
+              r.data[2].up_payout > 2 &&
+              r.data[3].up_payout > 2 &&
+              r.data[4].up_payout > 2
+                ? "UP"
+                : r.data[2].down_payout > 2 &&
+                  r.data[3].down_payout > 2 &&
+                  r.data[4].down_payout > 2
+                ? "DOWN"
+                : "";
 
             if (r["pred"] !== "") {
               setRate((prev) => ({ ...prev, count1: prev.count1 + 1 }));
               if (r["pred"] === r["final"]) {
                 setRate((prev) => ({ ...prev, win1: prev.win1 + 1 }));
+              }
+            }
+
+            if (r["pred4"] !== "") {
+              setRate((prev) => ({ ...prev, count4: prev.count4 + 1 }));
+              if (r["pred4"] === r["final"]) {
+                setRate((prev) => ({ ...prev, win4: prev.win4 + 1 }));
               }
             }
           });
@@ -240,6 +259,7 @@ function App() {
             res["Predict Result"] = r["pred"];
             res["Predict Result 2"] = r["pred2"];
             res["Predict Result 3"] = r["pred3"];
+            res["Predict Result 4"] = r["pred4"];
 
             res[`LIVE UP Payout`] = r["data"][0]["up_payout"];
             res[`LIVE DOWN Payout`] = r["data"][0]["down_payout"];
@@ -362,6 +382,11 @@ function App() {
             <div className="dark:text-black text-center font-bold  p-2">
               X4: {rate.win3} / {rate.count3} ~{" "}
               {(rate.win3 / rate.count3).toFixed(3)}
+            </div>
+
+            <div className="dark:text-black text-center font-bold  p-2">
+              Greater than 2: {rate.win4} / {rate.count4} ~{" "}
+              {(rate.win4 / rate.count4).toFixed(3)}
             </div>
           </div>
           {data === "bnb/live" ? (
