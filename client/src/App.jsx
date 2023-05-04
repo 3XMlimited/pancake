@@ -349,6 +349,8 @@ function App() {
                   count2: 0,
                   win3: 0,
                   count3: 0,
+                  win4: 0,
+                  count4: 0,
                 });
               }}
             >
