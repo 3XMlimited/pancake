@@ -22,6 +22,7 @@ def send_tx(side, epoch):
     if epoch == current_epoch:
         # Nonce
         nonce = w3.eth.get_transaction_count(ACCOUNT)
+        print("NONCE", nonce)
 
         # Build Transaction - BULL
         if side == "bull":
