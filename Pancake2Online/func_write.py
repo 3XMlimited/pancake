@@ -11,42 +11,44 @@ def send_tx(side, epoch):
     # Variables
     chain_id = 56
     gas = 300000
-    gas_price = Web3.toWei("5.5", "gwei")
+    gas_price = Web3.to_wei("5.5", "gwei")
     send_bnb = 0.015
-    amount = Web3.toWei(0.015, "ether")
+    amount = Web3.to_wei(0.015, "ether")
 
     # Get current epoch
     current_epoch = CONTRACT.functions.currentEpoch().call()
 
-  # Nonce
-    nonce = w3.eth.getTransactionCount(ACCOUNT)
+    print("Current EPOCH", current_epoch)
+    if epoch == current_epoch:
+        # Nonce
+        nonce = w3.eth.get_transaction_count(ACCOUNT)
 
-    # Build Transaction - BULL
-    if side == "bull":
-        tx_build = CONTRACT.functions.betBull(current_epoch).buildTransaction({
-            "chainId": chain_id,
-            "value": amount,
-            "gas": gas,
-            "gasPrice": gas_price,
-            "nonce": nonce
-        })
+        # Build Transaction - BULL
+        if side == "bull":
+            tx_build = CONTRACT.functions.betBull(current_epoch).build_transaction({
+                "chainId": chain_id,
+                "value": amount,
+                "gas": gas,
+                "gasPrice": gas_price,
+                "nonce": nonce
+            })
 
-    if side == "bear":
-        tx_build = CONTRACT.functions.betBear(current_epoch).buildTransaction({
-            "chainId": chain_id,
-            "value": amount,
-            "gas": gas,
-            "gasPrice": gas_price,
-            "nonce": nonce
-        })
+        if side == "bear":
+            tx_build = CONTRACT.functions.betBear(current_epoch).build_transaction({
+                "chainId": chain_id,
+                "value": amount,
+                "gas": gas,
+                "gasPrice": gas_price,
+                "nonce": nonce
+            })
 
-    # Sign transaction
-    tx_signed = w3.eth.account.signTransaction(
-        tx_build, private_key=PRIVATE_KEY)
+        # Sign transaction
+        tx_signed = w3.eth.account.sign_transaction(
+            tx_build, private_key=PRIVATE_KEY)
 
-    # Send transaction
-    sent_tx = w3.eth.sendRawTransaction(tx_signed.rawTransaction)
-    print(sent_tx)
+        # Send transaction
+        sent_tx = w3.eth.send_raw_transaction(tx_signed.rawTransaction)
+        print(sent_tx)
 
 
 # Claim winnings
@@ -82,6 +84,10 @@ def claim_winnings(prev_epoch):
         tx_signed = w3.eth.account.signTransaction(
             tx_build, private_key=PRIVATE_KEY)
         print(tx_signed)
+
+        # Send transaction
+        sent_tx = w3.eth.sendRawTransaction(tx_signed.rawTransaction)
+        print(sent_tx)
 
         # Return
         return True
