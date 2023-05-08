@@ -535,25 +535,25 @@ function Main() {
               <option value="bnb/live_test">TEST - BNB</option>
               <option value="cake/live_test">TEST - CAKE</option>
             </select>
-            <div className="dark:text-black text-center font-bold  p-2">
+            <div className="dark:text-black text-center font-bold text-sm  p-2">
               PRED1: {rate.win1} / {rate.count1} ~{" "}
               {(rate.win1 / rate.count1).toFixed(3)}
             </div>
-            <div className="dark:text-black text-center font-bold  p-2">
+            <div className="dark:text-black text-center font-bold text-sm  p-2">
               X3: {rate.win2} / {rate.count2} ~{" "}
               {(rate.win2 / rate.count2).toFixed(3)}
             </div>
-            <div className="dark:text-black text-center font-bold  p-2">
+            <div className="dark:text-black text-center font-bold text-sm  p-2">
               X4: {rate.win3} / {rate.count3} ~{" "}
               {(rate.win3 / rate.count3).toFixed(3)}
             </div>
 
-            <div className="dark:text-black text-center font-bold  p-2">
+            <div className="dark:text-black text-center font-bold text-sm  p-2">
               Greater than 2: {rate.win4} / {rate.count4} ~{" "}
               {(rate.win4 / rate.count4).toFixed(3)}
             </div>
 
-            <div className="dark:text-black text-center font-bold  p-2">
+            <div className="dark:text-black text-center font-bold text-sm  p-2">
               CAKE: {rate.win_cake} / {rate.count_cake} ~{" "}
               {(rate.win_cake / rate.count_cake).toFixed(3)}
             </div>
