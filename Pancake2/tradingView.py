@@ -1,5 +1,6 @@
 from tradingview_ta import TA_Handler, Interval, Exchange
 import pandas as pd
+from pprint import pprint
 handler1m = TA_Handler(
     symbol="BNBUSDT",
     exchange="BINANCE",
@@ -29,6 +30,7 @@ def percentage(a, b):
 def getSignal():
     rec1m = handler1m.get_analysis().summary
     rec5m = handler5m.get_analysis().summary
+
     # rec15m = handler15m.get_analysis().summary
 
     # if rec1m and rec5m and rec15m:
@@ -86,3 +88,8 @@ def getSignal():
 
 
 # 168861
+
+s = handler1m.get_analysis().indicators
+s2 = handler1m.get_analysis().oscillators
+# pprint(s, len(s))
+pprint(s2)

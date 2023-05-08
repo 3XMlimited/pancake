@@ -92,5 +92,10 @@ def claim_winnings(prev_epoch):
 
         # Return
         return True
-    except:
+    except Exception as e:
+        print("error", e)
         return False
+
+
+# 0.2442 BNB
+# 0.2301

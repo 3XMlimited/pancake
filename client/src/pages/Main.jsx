@@ -23,6 +23,8 @@ function Main() {
     count3: 0,
     win4: 0,
     count4: 0,
+    win_cake: 0,
+    count_cake: 0,
   });
 
   const pancake =
@@ -68,6 +70,7 @@ function Main() {
                   r?.data[2].close_price > r.data[2].lock_price
                 ? "DOWN"
                 : "";
+
             if (r["pred"] === r["final"]) {
               setWin((prev) => prev + 1);
             }
@@ -165,6 +168,7 @@ function Main() {
                 results[index - 2]?.data[2].lock_price
               ? "UP"
               : "";
+
             r["pred"] =
               r.data[0].down_payout < 1.4 &&
               r.data[2].close_price > r.data[2].lock_price
@@ -328,7 +332,12 @@ function Main() {
                   r.data[4].down_payout > 2
                 ? "DOWN"
                 : "";
-
+            r["pred_cake"] =
+              r.data[0].up_payout > 2
+                ? "UP"
+                : r.data[0].down_payout > 2
+                ? "DOWN"
+                : "";
             if (r["pred"] !== "") {
               setRate((prev) => ({ ...prev, count1: prev.count1 + 1 }));
               if (r["pred"] === r["final"]) {
@@ -340,6 +349,18 @@ function Main() {
               setRate((prev) => ({ ...prev, count4: prev.count4 + 1 }));
               if (r["pred4"] === r["final"]) {
                 setRate((prev) => ({ ...prev, win4: prev.win4 + 1 }));
+              }
+            }
+            if (r["pred_cake"] !== "") {
+              setRate((prev) => ({
+                ...prev,
+                count_cake: prev.count_cake + 1,
+              }));
+              if (r["pred_cake"] === r["final"]) {
+                setRate((prev) => ({
+                  ...prev,
+                  win_cake: prev.win_cake + 1,
+                }));
               }
             }
           });
@@ -441,6 +462,8 @@ function Main() {
       count3: 0,
       win4: 0,
       count4: 0,
+      win_cake: 0,
+      count_cake: 0,
     });
   }, [data]);
 
@@ -487,6 +510,8 @@ function Main() {
                   count3: 0,
                   win4: 0,
                   count4: 0,
+                  win_cake: 0,
+                  count_cake: 0,
                 });
               }}
             >
@@ -526,6 +551,11 @@ function Main() {
             <div className="dark:text-black text-center font-bold  p-2">
               Greater than 2: {rate.win4} / {rate.count4} ~{" "}
               {(rate.win4 / rate.count4).toFixed(3)}
+            </div>
+
+            <div className="dark:text-black text-center font-bold  p-2">
+              CAKE: {rate.win_cake} / {rate.count_cake} ~{" "}
+              {(rate.win_cake / rate.count_cake).toFixed(3)}
             </div>
           </div>
           {data === "bnb/live" ? (

@@ -11,7 +11,7 @@ const TableTest = ({ result, isLoading }) => {
           <thead className="">
             <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
               <th className="border border-x-1 px-2 "></th>
-              <th className="border border-x-1 px-2 " colSpan={5}>
+              <th className="border border-x-1 px-2 " colSpan={6}>
                 RESULT
               </th>
               <th className="border border-x-1 px-2 " colSpan={2}>
@@ -36,6 +36,7 @@ const TableTest = ({ result, isLoading }) => {
               <th className="border border-x-1 px-2 ">PRED 3X </th>
               <th className="border border-x-1 px-2 ">PRED 4X </th>
               <th className="border border-x-1 px-2 ">PRED 3X - ODDS</th>
+              <th className="border border-x-1 px-2 ">PRED CAKE</th>
 
               <th className="border border-x-1 px-2 ">Up payout</th>
               <th className="border border-x-1 px-2 ">Down payout</th>
@@ -85,7 +86,17 @@ const TableTest = ({ result, isLoading }) => {
                 </td> */}
 
                 {result[index - 2]?.data ? (
-                  <td className="text-center border border-r-1  ">
+                  <td
+                    className={`text-center border border-r-1   ${
+                      result[index - 2].data[2].close_price <
+                      result[index - 2].data[2].lock_price
+                        ? "text-[#ed4b93]"
+                        : result[index - 2].data[2].close_price >
+                          result[index - 2].data[2].lock_price
+                        ? "text-[#31d0aa]"
+                        : ""
+                    } `}
+                  >
                     <p>
                       {result[index - 2].data[2].close_price <
                       result[index - 2].data[2].lock_price
@@ -101,38 +112,81 @@ const TableTest = ({ result, isLoading }) => {
                 )}
 
                 {r?.data?.[0] && isLoading === false && (
-                  <td className="text-center border border-r-1  ">
+                  <td
+                    className={`text-center border border-r-1 ${
+                      r.pred3 === r.final && r.pred3 === "UP"
+                        ? "text-[#31d0aa]"
+                        : r.pred3 === r.final && r.pred3 === "DOWN"
+                        ? "text-[#ed4b93]"
+                        : ""
+                    }  `}
+                  >
                     <p
-                      className={`${
-                        r.data[0].down_payout < 1.4 &&
-                        r.data[2].close_price < r.data[2].lock_price
-                          ? "text-[#31d0aa]"
-                          : r.data[0].up_payout < 1.4 &&
-                            r.data[2].close_price > r.data[2].lock_price
-                          ? "text-[#ed4b93]"
-                          : ""
-                      }`}
+                    // className={`${
+                    //   r.data[0].down_payout < 1.4 &&
+                    //   r.data[2].close_price < r.data[2].lock_price
+                    //     ? "text-[#31d0aa]"
+                    //     : r.data[0].up_payout < 1.4 &&
+                    //       r.data[2].close_price > r.data[2].lock_price
+                    //     ? "text-[#ed4b93]"
+                    //     : ""
+                    // }`}
                     >
-                      {r.data[0].down_payout < 1.4 &&
+                      {/* {r.data[0].down_payout < 1.4 &&
                       r.data[2].close_price < r.data[2].lock_price
                         ? "UP"
                         : r?.data[0].up_payout < 1.4 &&
                           r?.data[2].close_price > r.data[2].lock_price
                         ? "DOWN"
-                        : ""}
+                        : ""} */}
+                      {r.pred}
                     </p>
                   </td>
                 )}
-                <td className="text-center border border-r-1  ">
+                <td
+                  className={`text-center border border-r-1 ${
+                    r.pred2 === r.final && r.pred2 === "UP"
+                      ? "text-[#31d0aa]"
+                      : r.pred2 === r.final && r.pred2 === "DOWN"
+                      ? "text-[#ed4b93]"
+                      : ""
+                  }  `}
+                >
                   <p>{r.pred2}</p>
                 </td>
-                <td className="text-center border border-r-1  ">
+                <td
+                  className={`text-center border border-r-1 ${
+                    r.pred3 === r.final && r.pred3 === "UP"
+                      ? "text-[#31d0aa]"
+                      : r.pred3 === r.final && r.pred3 === "DOWN"
+                      ? "text-[#ed4b93]"
+                      : ""
+                  }  `}
+                >
                   <p>{r.pred3}</p>
                 </td>
-                <td className="text-center border border-r-1  ">
+                <td
+                  className={`text-center border border-r-1 ${
+                    r.pred4 === r.final && r.pred4 === "UP"
+                      ? "text-[#31d0aa]"
+                      : r.pred4 === r.final && r.pred4 === "DOWN"
+                      ? "text-[#ed4b93]"
+                      : ""
+                  }  `}
+                >
                   <p>{r.pred4}</p>
                 </td>
-
+                <td
+                  className={`text-center border border-r-1 ${
+                    r.pred_cake === r.final && r.pred_cake === "UP"
+                      ? "text-[#31d0aa]"
+                      : r.pred_cake === r.final && r.pred_cake === "DOWN"
+                      ? "text-[#ed4b93]"
+                      : ""
+                  }  `}
+                >
+                  <p>{r.pred_cake}</p>
+                </td>
                 {r.data?.map((s, i) =>
                   i === 1 ? (
                     <>
