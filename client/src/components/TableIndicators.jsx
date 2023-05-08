@@ -30,18 +30,19 @@ const TableIndicators = ({
               <th className="border border-x-1 px-2 " colSpan={4}>
                 RESULT
               </th>
+
+              <th className="border border-x-1 px-2 " colSpan={1}>
+                STRONG with AVG
+              </th>
               <th className="border border-x-1 px-2 " colSpan={6}>
                 📈 1 MINS
               </th>
-
               <th className="border border-x-1 px-2 " colSpan={6}>
                 📈 5 MINS
               </th>
-
               <th className="border border-x-1 px-2 " colSpan={6}>
                 📈 15 MINS
               </th>
-
               <th className="border border-x-1 px-2 " colSpan={6}>
                 📈 AVG (1MINS and 5 MINS)
               </th>
@@ -61,6 +62,9 @@ const TableIndicators = ({
               <th className="border border-x-1 px-2 "> LOCK PRICE </th>
               <th className="border border-x-1 px-2 ">FINAL </th>
               <th className="border border-x-1 px-2 ">%Price Change </th>
+              <th className="border border-x-1 px-2 ">
+                STRONG_5MINS with AVG_1_5
+              </th>
 
               <th className="border border-x-1 px-2 "> RECOMMENDATION </th>
               <th className="border border-x-1 px-2 ">BUY COUNT </th>
@@ -150,6 +154,9 @@ const TableIndicators = ({
                   } `}
                 >
                   {Number(r?.["%priceChange"] ?? 0).toFixed(2)}
+                </td>
+                <td className="text-center border border-r-1 px-2">
+                  {r.STRONG_5_AVG_1_5}
                 </td>
                 {r.data?.map((s, i) => (
                   <>

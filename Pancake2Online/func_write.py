@@ -12,7 +12,7 @@ def send_tx(side, epoch):
     chain_id = 56
     gas = 300000
     gas_price = Web3.to_wei("5.5", "gwei")
-    send_bnb = 0.015
+
     amount = Web3.to_wei(0.015, "ether")
 
     # Get current epoch

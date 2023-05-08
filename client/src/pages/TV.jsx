@@ -20,6 +20,9 @@ const TV = () => {
     SIGNAL_avg_1_5: 0,
     RECOMMEND_avg_1_5_15: 0,
     SIGNAL_avg_1_5_15: 0,
+    STRONG_1: 0,
+    STRONG_5: 0,
+    STRONG_15: 0,
   });
   const [count, setCount] = useState({
     RECOMMEND_1m: 0,
@@ -32,6 +35,9 @@ const TV = () => {
     SIGNAL_avg_1_5: 0,
     RECOMMEND_avg_1_5_15: 0,
     SIGNAL_avg_1_5_15: 0,
+    STRONG_1: 0,
+    STRONG_5: 0,
+    STRONG_15: 0,
   });
   console.log(minAcurracy);
   useEffect(() => {
@@ -47,6 +53,10 @@ const TV = () => {
         SIGNAL_avg_1_5: 0,
         RECOMMEND_avg_1_5_15: 0,
         SIGNAL_avg_1_5_15: 0,
+        STRONG_1: 0,
+        STRONG_5: 0,
+        STRONG_15: 0,
+        STRONG_5_AVG_1_5: 0,
       });
       setCount({
         RECOMMEND_1m: 0,
@@ -59,6 +69,10 @@ const TV = () => {
         SIGNAL_avg_1_5: 0,
         RECOMMEND_avg_1_5_15: 0,
         SIGNAL_avg_1_5_15: 0,
+        STRONG_1: 0,
+        STRONG_5: 0,
+        STRONG_15: 0,
+        STRONG_5_AVG_1_5: 0,
       });
 
       let res = data;
@@ -80,6 +94,14 @@ const TV = () => {
                 res[index].data[i].signal > minAcurracy
               ? "DOWN"
               : "/";
+          res[index].STRONG_5_AVG_1_5 =
+            res[index].data[1].RECOMMENDATION === "STRONG_BUY" &&
+            res[index].data[i].alert === "UP"
+              ? "UP"
+              : res[index].data[1].RECOMMENDATION === "STRONG_SELL" &&
+                res[index].data[i].alert === "DOWN"
+              ? "DOWN"
+              : "/";
         }
       }
       setData(res);
@@ -87,15 +109,15 @@ const TV = () => {
       for (let i = 2; i < data.length; i++) {
         // 1m
         if (
-          data[i].data[0]["RECOMMENDATION"] !== "NEUTRAL" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_BUY" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_SELL"
+          data[i].data[0]["RECOMMENDATION"] !== "NEUTRAL"
+          // data[i].data[0]["RECOMMENDATION"] !== "STRONG_BUY" &&
+          // data[i].data[0]["RECOMMENDATION"] !== "STRONG_SELL"
         ) {
           if (
             (data[i].result === "UP" &&
-              data[i].data[0]["RECOMMENDATION"] === "BUY") ||
+              data[i].data[0]["RECOMMENDATION"].includes("BUY")) ||
             (data[i].result === "DOWN" &&
-              data[i].data[0]["RECOMMENDATION"] === "SELL")
+              data[i].data[0]["RECOMMENDATION"].includes("SELL"))
           ) {
             setResults((prev) => ({
               ...prev,
@@ -123,16 +145,12 @@ const TV = () => {
         }
 
         // 5m
-        if (
-          data[i].data[1]["RECOMMENDATION"] !== "NEUTRAL" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_BUY" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_SELL"
-        ) {
+        if (data[i].data[1]["RECOMMENDATION"] !== "NEUTRAL") {
           if (
             (data[i].result === "UP" &&
-              data[i].data[1]["RECOMMENDATION"] === "BUY") ||
+              data[i].data[1]["RECOMMENDATION"].includes("BUY")) ||
             (data[i].result === "DOWN" &&
-              data[i].data[1]["RECOMMENDATION"] === "SELL")
+              data[i].data[1]["RECOMMENDATION"].includes("SELL"))
           ) {
             setResults((prev) => ({
               ...prev,
@@ -158,16 +176,12 @@ const TV = () => {
         }
 
         // 15 m
-        if (
-          data[i].data[2]["RECOMMENDATION"] !== "NEUTRAL" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_BUY" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_SELL"
-        ) {
+        if (data[i].data[2]["RECOMMENDATION"] !== "NEUTRAL") {
           if (
             (data[i].result === "UP" &&
-              data[i].data[3]["RECOMMENDATION"] === "BUY") ||
+              data[i].data[3]["RECOMMENDATION"].includes("BUY")) ||
             (data[i].result === "DOWN" &&
-              data[i].data[3]["RECOMMENDATION"] === "SELL")
+              data[i].data[3]["RECOMMENDATION"].includes("SELL"))
           ) {
             setResults((prev) => ({
               ...prev,
@@ -197,8 +211,8 @@ const TV = () => {
         //   avg_1_5
         if (
           data[i].data[3]["RECOMMENDATION"] !== "NEUTRAL" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_BUY" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_SELL"
+          data[i].data[3]["RECOMMENDATION"] !== "STRONG_BUY" &&
+          data[i].data[3]["RECOMMENDATION"] !== "STRONG_SELL"
         ) {
           if (
             (data[i].result === "UP" &&
@@ -233,8 +247,8 @@ const TV = () => {
         //   avg_1_5_15
         if (
           data[i].data[4]["RECOMMENDATION"] !== "NEUTRAL" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_BUY" &&
-          data[i].data[2]["RECOMMENDATION"] !== "STRONG_SELL"
+          data[i].data[4]["RECOMMENDATION"] !== "STRONG_BUY" &&
+          data[i].data[4]["RECOMMENDATION"] !== "STRONG_SELL"
         ) {
           if (
             (data[i].result === "UP" &&
@@ -263,6 +277,82 @@ const TV = () => {
           setCount((prev) => ({
             ...prev,
             SIGNAL_avg_1_5_15: prev.SIGNAL_avg_1_5_15 + 1,
+          }));
+        }
+
+        if (
+          data[i].data[0]["RECOMMENDATION"] === "STRONG_BUY" ||
+          data[i].data[0]["RECOMMENDATION"] === "STRONG_SELL"
+        ) {
+          if (
+            (data[i].result === "UP" &&
+              data[i].data[0]["RECOMMENDATION"] === "STRONG_BUY") ||
+            (data[i].result === "DOWN" &&
+              data[i].data[0]["RECOMMENDATION"] === "STRONG_SELL")
+          ) {
+            setResults((prev) => ({
+              ...prev,
+              STRONG_1: prev.STRONG_1 + 1,
+            }));
+          }
+          setCount((prev) => ({
+            ...prev,
+            STRONG_1: prev.STRONG_1 + 1,
+          }));
+        }
+
+        if (
+          data[i].data[1]["RECOMMENDATION"] === "STRONG_BUY" ||
+          data[i].data[1]["RECOMMENDATION"] === "STRONG_SELL"
+        ) {
+          if (
+            (data[i].result === "UP" &&
+              data[i].data[1]["RECOMMENDATION"] === "STRONG_BUY") ||
+            (data[i].result === "DOWN" &&
+              data[i].data[1]["RECOMMENDATION"] === "STRONG_SELL")
+          ) {
+            setResults((prev) => ({
+              ...prev,
+              STRONG_5: prev.STRONG_5 + 1,
+            }));
+          }
+          setCount((prev) => ({
+            ...prev,
+            STRONG_5: prev.STRONG_5 + 1,
+          }));
+        }
+
+        if (
+          data[i].data[2]["RECOMMENDATION"] === "STRONG_BUY" ||
+          data[i].data[2]["RECOMMENDATION"] === "STRONG_SELL"
+        ) {
+          if (
+            (data[i].result === "UP" &&
+              data[i].data[2]["RECOMMENDATION"] === "STRONG_BUY") ||
+            (data[i].result === "DOWN" &&
+              data[i].data[2]["RECOMMENDATION"] === "STRONG_SELL")
+          ) {
+            setResults((prev) => ({
+              ...prev,
+              STRONG_15: prev.STRONG_15 + 1,
+            }));
+          }
+          setCount((prev) => ({
+            ...prev,
+            STRONG_15: prev.STRONG_15 + 1,
+          }));
+        }
+
+        if (data[i].STRONG_5_AVG_1_5 !== "/") {
+          if (data[i].STRONG_5_AVG_1_5 === data[i].result) {
+            setResults((prev) => ({
+              ...prev,
+              STRONG_5_AVG_1_5: prev.STRONG_5_AVG_1_5 + 1,
+            }));
+          }
+          setCount((prev) => ({
+            ...prev,
+            STRONG_5_AVG_1_5: prev.STRONG_5_AVG_1_5 + 1,
           }));
         }
       }
@@ -307,6 +397,10 @@ const TV = () => {
       SIGNAL_avg_1_5: 0,
       RECOMMEND_avg_1_5_15: 0,
       SIGNAL_avg_1_5_15: 0,
+      STRONG_1: 0,
+      STRONG_5: 0,
+      STRONG_15: 0,
+      STRONG_5_AVG_1_5: 0,
     });
 
     setCount({
@@ -320,6 +414,10 @@ const TV = () => {
       SIGNAL_avg_1_5: 0,
       RECOMMEND_avg_1_5_15: 0,
       SIGNAL_avg_1_5_15: 0,
+      STRONG_1: 0,
+      STRONG_5: 0,
+      STRONG_15: 0,
+      STRONG_5_AVG_1_5: 0,
     });
 
     handleData();
@@ -485,7 +583,7 @@ const TV = () => {
                 className={`${"bg-gray-200 dark:bg-white"}  dark:text-black  w-full `}
               >
                 <td className="text-center border border-r-1 text-yellow-900  font-mono">
-                  REC_avg_1_5
+                  REC_avg_1_5_15
                 </td>
                 <td className="text-center border border-r-1  font-mono">
                   {results["RECOMMEND_avg_1_5_15"]}
@@ -512,6 +610,73 @@ const TV = () => {
                 </td>
                 <td className="text-center border border-r-1  font-mono">
                   {(results["SIGNAL_avg_1_5_15"] / count["SIGNAL_avg_1_5_15"]) *
+                    100}
+                </td>
+              </tr>
+
+              <tr
+                className={`${"bg-gray-200 dark:bg-white"}  dark:text-black  w-full `}
+              >
+                <td className="text-center border border-r-1 text-yellow-900  font-mono">
+                  STRONG_1
+                </td>
+                <td className="text-center border border-r-1  font-mono">
+                  {results["STRONG_1"]}
+                </td>
+                <td className="text-center border border-r-1   font-mono">
+                  {count["STRONG_1"]}
+                </td>
+                <td className="text-center border border-r-1  font-mono">
+                  {(results["STRONG_1"] / count["STRONG_1"]) * 100}
+                </td>
+              </tr>
+
+              <tr className={`${" dark:bg-white"}  dark:text-black  w-full `}>
+                <td className="text-center border border-r-1 text-yellow-900  font-mono">
+                  STRONG_5
+                </td>
+                <td className="text-center border border-r-1  font-mono">
+                  {results["STRONG_5"]}
+                </td>
+                <td className="text-center border border-r-1   font-mono">
+                  {count["STRONG_5"]}
+                </td>
+                <td className="text-center border border-r-1  font-mono">
+                  {(results["STRONG_5"] / count["STRONG_5"]) * 100}
+                </td>
+              </tr>
+
+              <tr
+                className={`${"bg-gray-200 dark:bg-white"}  dark:text-black  w-full `}
+              >
+                <td className="text-center border border-r-1 text-yellow-900  font-mono">
+                  STRONG_15
+                </td>
+                <td className="text-center border border-r-1  font-mono">
+                  {results["STRONG_15"]}
+                </td>
+                <td className="text-center border border-r-1   font-mono">
+                  {count["STRONG_15"]}
+                </td>
+                <td className="text-center border border-r-1  font-mono">
+                  {(results["STRONG_15"] / count["STRONG_15"]) * 100}
+                </td>
+              </tr>
+
+              <tr
+                className={`${"bg-gray-200 dark:bg-white"}  dark:text-black  w-full `}
+              >
+                <td className="text-center border border-r-1 text-yellow-900  font-mono">
+                  STRONG_5 with AVG_1_5
+                </td>
+                <td className="text-center border border-r-1  font-mono">
+                  {results["STRONG_5_AVG_1_5"]}
+                </td>
+                <td className="text-center border border-r-1   font-mono">
+                  {count["STRONG_5_AVG_1_5"]}
+                </td>
+                <td className="text-center border border-r-1  font-mono">
+                  {(results["STRONG_5_AVG_1_5"] / count["STRONG_5_AVG_1_5"]) *
                     100}
                 </td>
               </tr>
