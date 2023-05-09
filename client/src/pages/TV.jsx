@@ -39,7 +39,7 @@ const TV = () => {
     STRONG_5: 0,
     STRONG_15: 0,
   });
-  console.log(minAcurracy);
+
   useEffect(() => {
     if (data.length > 0) {
       setResults({
