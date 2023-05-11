@@ -200,8 +200,38 @@ const TableIndicators = ({
     "VWMA",
     "HullMA",
   ];
-  console.log(indicator);
-  console.log("count:", indicatorCount);
+  const v2_15 = ["ADX", "RSI", "STOCH.K"];
+  const v2_5 = ["Ichimoku", "Stoch.RSI", "ADX", "RSI"];
+  const v2_1 = ["Ichimoku", "Stoch.RSI", "AO", "RSI"];
+
+  const v3 = {};
+  v3["s0_Ichimoku"] = indicator["s0_Ichimoku"];
+  v3["s0_Stoch.RSI"] = indicator["s0_Stoch.RSI"];
+  v3["s0_AO"] = indicator["s0_AO"];
+  v3["s0_RSI"] = indicator["s0_RSI"];
+  v3["s1_Ichimoku"] = indicator["s1_Ichimoku"];
+  v3["s1_Stoch.RSI"] = indicator["s1_Stoch.RSI"];
+  v3["s1_ADX"] = indicator["s1_ADX"];
+  v3["s1_RSI"] = indicator["s1_RSI"];
+
+  v3["s2_ADX"] = indicator["s2_ADX"];
+  v3["s2_RSI"] = indicator["s2_RSI"];
+  v3["s2_STOCH.K"] = indicator["s2_STOCH.K"];
+
+  const v3_count = {};
+  v3_count["s0_Ichimoku"] = indicatorCount["s0_Ichimoku"];
+  v3_count["s0_Stoch.RSI"] = indicatorCount["s0_Stoch.RSI"];
+  v3_count["s0_AO"] = indicatorCount["s0_AO"];
+  v3_count["s0_RSI"] = indicatorCount["s0_RSI"];
+  v3_count["s1_Ichimoku"] = indicatorCount["s1_Ichimoku"];
+  v3_count["s1_Stoch.RSI"] = indicatorCount["s1_Stoch.RSI"];
+  v3_count["s1_ADX"] = indicatorCount["s1_ADX"];
+  v3_count["s1_RSI"] = indicatorCount["s1_RSI"];
+
+  v3_count["s2_ADX"] = indicatorCount["s2_ADX"];
+  v3_count["s2_RSI"] = indicatorCount["s2_RSI"];
+  v3_count["s2_STOCH.K"] = indicatorCount["s2_STOCH.K"];
+
   useEffect(() => {
     if (result) {
       result.map((r) => {
@@ -282,6 +312,66 @@ const TableIndicators = ({
                     {Object.values(indicator)[index] / i
                       ? ((Object.values(indicator)[index] / i) * 100).toFixed(2)
                       : Object.values(indicator)[index] / i}
+                    %
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="my-5 border border-1">
+          <div className="mx-5 font-mono dark:text-black">
+            Indicator result (v2)
+          </div>
+          <table className="  h-[50%] overflow-y-scroll">
+            <thead className="">
+              <tr className="w-full gap-4 sticky top-0 bg-gray-700 dark:bg-gray-700  dark:text-white text-white  rounded-md font-mono">
+                <th className="border border-x-1 px-2 " colSpan={4}>
+                  📈 1 MINS
+                </th>
+                <th className="border border-x-1 px-2 " colSpan={4}>
+                  📈 5 MINS
+                </th>
+                <th className="border border-x-1 px-2 " colSpan={3}>
+                  📈 15 MINS
+                </th>
+              </tr>
+            </thead>
+            <thead className="">
+              <tr className="w-full gap-4 sticky top-0 bg-black dark:bg-black  dark:text-white text-white ">
+                {v2_1.map((i) => (
+                  <th className="border border-x-1 px-2 ">{i}</th>
+                ))}
+                {v2_5.map((i) => (
+                  <th className="border border-x-1 px-2 ">{i}</th>
+                ))}
+                {v2_15.map((i) => (
+                  <th className="border border-x-1 px-2 ">{i}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {Object.values(v3)?.map((i) => (
+                  <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
+                    {i}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                {Object.values(v3_count)?.map((i) => (
+                  <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
+                    {i}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                {Object.values(v3_count)?.map((i, index) => (
+                  <td className="text-center border border-r-1 px-2 text-gray-400 font-bold ">
+                    {Object.values(v3)[index] / i
+                      ? ((Object.values(v3)[index] / i) * 100).toFixed(2)
+                      : Object.values(v3)[index] / i}
                     %
                   </td>
                 ))}
