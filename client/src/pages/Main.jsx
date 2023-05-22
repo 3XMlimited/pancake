@@ -156,6 +156,7 @@ function Main() {
           const results = response.data.result
             .reverse()
             .sort((a, b) => new Date(a.datetime) - new Date(b.dateTime));
+          console.log(results);
           // const indexs = [results.length - 1, results.length - 2];
           const indexs = [0, 1];
           results.forEach((r, index) => {
@@ -294,6 +295,7 @@ function Main() {
               100
             ).toFixed(4);
 
+            res["total_amount"] = r["data"][0].total_amount;
             ress.push(res);
           });
 
