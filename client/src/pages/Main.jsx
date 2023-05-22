@@ -295,7 +295,7 @@ function Main() {
               100
             ).toFixed(4);
 
-            res["total_amount"] = r["data"][0].total_amount;
+            res["total_amount"] = results[index - 1]?.data[1].total_amount;
             ress.push(res);
           });
 
